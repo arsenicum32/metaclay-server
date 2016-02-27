@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <title>metaclay</title>
+    <link rel="stylesheet" href='css/style.css' />
+    <link rel="stylesheet" href='css/frame.css' />
+    <script type='text/javascript' src='js/lib/jquery2.2.js'></script>
+    <script type='text/javascript' src='js/lib/socket.io.js'></script>
+    <script type='text/javascript' src='js/lib/d3.js'></script>
+  </head>
+  <body>
+    <script>
+      var socket = io('/test');
+
+      $(document).ready(function(){
+        send(window.location.href );
+      });
+      socket.on('getdata', function(msg){
+        console.log(msg);
+      });
+      function send(msg){
+        socket.emit('getdata', msg);
+      }
+    </script>
+    <script src="js/env/reactive.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/path.js"></script>
+    <script src="js/UI.js"></script>
+    <script src="js/planet.js"></script>
+    <script src="js/logog_animation.js"></script>
+    <script src="js/addsphere.js"></script>
+  </body>
+</html>

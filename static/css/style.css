@@ -1,0 +1,27 @@
+body{
+  margin:0;
+  overflow: hidden;
+  font-family: Gill Sans;
+}
+.tooltip{
+  position:absolute;
+  z-index:10;
+  visibility:hidden;
+  color: white;
+  background: #F7C059;
+  padding: 12px;
+}
+.fullinfopanel{
+  position:absolute;
+  z-index:10;
+  visibility:hidden;
+  background: white;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  width: 50vw;
+  height: 100vh;
+}
+.st1{fill:#F7C059;}
+.st2{fill:#FFFFFF;}
+.st3{fill:#4A96CD;}
+.st4{fill:#D20024;}

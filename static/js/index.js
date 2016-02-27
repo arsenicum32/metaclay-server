@@ -7,7 +7,7 @@
   });
 
   window.objs = [];
-  window.planets = [];
+  window.resf = [];
   window.stage = svg.append('g').attr('visibility','hidden');
   window.navpanel = svg.append('g');
 
@@ -16,8 +16,8 @@
     y = $(window).height();
     svg.attr("width", x).attr("height", y);
     logog.attr('transform','translate('+(x/2  - 45)+','+(y/2 - 45)+')');
-    for(var i in planets){
-      planets[i]();
+    for(var i in resf){
+      resf[i]();
     }
   });
 

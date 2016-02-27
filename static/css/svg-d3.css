@@ -1,0 +1,16 @@
+.atom{
+  stroke: #ddd;
+  stroke-width: 2;
+  fill: #eee;
+}
+
+.planet{
+  stroke: #333;
+  stroke-width: 3;
+  fill: #ccc;
+}
+.orbit{
+   stroke : #eee;
+   stroke-width : 3;
+   fill :  none ;
+}

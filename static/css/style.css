@@ -6,10 +6,11 @@ body{
 .tooltip{
   position:absolute;
   z-index:10;
+  background: white;
   visibility:hidden;
-  color: white;
-  background: #F7C059;
   padding: 12px;
+  border: 1px solid #ccc;
+  border-left: 5px solid #F7C059;
 }
 .fullinfopanel{
   position:absolute;
@@ -19,6 +20,7 @@ body{
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
   width: 50vw;
+  min-width: 350px;
   height: 100vh;
 }
 .st1{fill:#F7C059;}

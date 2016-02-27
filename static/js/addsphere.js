@@ -2,7 +2,7 @@
   var used = [[],[],[]];
   var number = 0;
   function addAtom(xf,yf, r){
-    this.genpos = function(){
+    var genpos = function(){
       var posY = Math.floor(Math.random()*3) - 1;
       var posX = Math.floor(Math.random()*5) - 2;
       if(used[posY+1] && used[posY+1].indexOf(posX)!=-1){
@@ -18,12 +18,20 @@
     var atom = stage.append('circle').attr({
       "cx": x/2 - (xf=='undefined'?genpos()[0]:xf)*x/6,
       "cy": y/2 - (yf=='undefined'?genpos()[1]:yf)*x/6,
-      "stroke": "#ddd",
-      "stroke-width": "2",
-      "fill": "#eee",
-      "class": "otdel-items",
+      "class": "otdel-items atom",
       "r": r || x/15
     });
+
+    resf.push(function(){
+      atom.attr({
+        "cx": x/2 - (xf=='undefined'?genpos()[0]:xf)*x/6,
+        "cy": y/2 - (yf=='undefined'?genpos()[1]:yf)*x/6,
+        "r": r || x/15
+      });
+      startx = parseInt(atom.attr("cx"));
+      starty = parseInt(atom.attr("cy"));
+    });
+
     var tmrca = 0;
     var createanim  = setInterval(function(){
       tmrca<(r || x/15)?tmrca+=0.55:clearInterval(createanim);

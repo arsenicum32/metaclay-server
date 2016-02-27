@@ -5,13 +5,11 @@
       var orbit = nav.append('circle').attr({
         "cx": x/2,
         "cy": y/2,
-        "stroke": "#eee",
-        "stroke-width": "3",
-        "fill": "none",
+        "class": "orbit",
         "r": orb.r
       });
 
-      planets.push(function(){
+      resf.push(function(){
         orbit.attr({
           "cx": x/2,
           "cy": y/2,
@@ -19,6 +17,21 @@
         });
       });
     }
+
+    var currentSel =  nav.append('text').attr({
+      "x": x/2,
+      "y": y/2 + orb.r + 80,
+      "font-size": 60,
+      "text-anchor": "middle"
+    }).text('');
+
+    resf.push(function(){
+      currentSel.attr({
+        "x": x/2,
+        "y": y/2 + orb.r + 80,
+      });
+    });
+
     var timer = [];
     var intervalRotation;
     var planet = [];
@@ -29,9 +42,6 @@
       planet.push(nav.append('circle').attr({
         "cx": x/2,
         "cy": y/2 + orb.r,
-        "stroke": "#333",
-        "stroke-width": "3",
-        "fill": "#ccc",
         "name": "planet"+i,
         "class": "planet",
         "r": pla[i].r || 30
@@ -61,7 +71,7 @@
         $(this).attr({
           "r": current*2.4
         });
-
+        tooltip.text( $(this).attr('name') );      ////////////////////// переменная name отвечает за название раздела
         return tooltip.style("visibility", "visible");
       });
 
@@ -86,6 +96,8 @@
           },10);
         }
 
+        currentSel.text( $(this).attr('name') ); ////////////////////////   переменная name отвечает за название раздела
+        rletter(currentSel);
         //drawPath.draw([[$(this).attr('cx'),$(this).attr('cy')],[200,200],[300,300]]); /////////////////////////////////////////
       });
       planet[i].on('mousemove', function(){
@@ -101,7 +113,28 @@
         return tooltip.style("visibility", "hidden");
       });
     }
+  }
 
+  function rletter(obj , end){    //////  делаем глитч-текст
+    var strg = 'abcdefghijklmnopqrstuvwxyz';
+    var timer = 0;
+    var fin = obj.text();
+    var end = end || 100;
+    var inter = setInterval( function(){
+      timer<end?timer++:clearInterval(inter);
+      for(var n in [0,1,2,3]){
+        if(timer < end - 12){
+          var text = obj.text();
+          var index = n;
+          text = text.substr(0, index) + strg[ Math.floor( Math.random()* strg.length ) ] + text.substr(index + 1);
+          obj.text( text );
+        }
+        else {
+          obj.text( fin );
+        }
+      }
+
+    }, 10);
   }
 
 

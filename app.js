@@ -1,5 +1,6 @@
 var express = require('express');
 var cors = require('cors');
+var fs = require('fs');
 
 var app = express();
 
@@ -18,8 +19,19 @@ testroom = io.of('/test');
 testroom.on('connection', function(socket){
   console.log('new client!');
   socket.on('getdata', function(msg){
-  	console.log('msg');
     testroom.emit('getdata', msg );
+  });
+
+  socket.on('fullinfopanel', function(msg){
+    fs.stat( __dirname + '/static/html/'+msg , function(err, stat){
+      if(err) console.log(err);
+      if(stat){
+        fs.readFile( __dirname + '/static/html/'+msg , function(err, data){
+          if (err) console.log(err);
+          testroom.emit('fullinfopanel', data.toString('utf8') );
+        });
+      }
+    });
   });
 });
 

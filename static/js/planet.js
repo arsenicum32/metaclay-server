@@ -96,7 +96,9 @@
           },10);
         }
 
+        renderotdel( $(this).attr('name') );
         currentSel.text( $(this).attr('name') ); ////////////////////////   переменная name отвечает за название раздела
+        socket.emit('loc', $(this).attr('name') );
         rletter(currentSel);
         //drawPath.draw([[$(this).attr('cx'),$(this).attr('cy')],[200,200],[300,300]]); /////////////////////////////////////////
       });
@@ -145,6 +147,8 @@
      {r: 16, speed: 0.25, start: pi*6},
      {r: 16, speed: 0.25, start: pi*8}
     ]);
+
+
 
 
   // window.orbit = svg.append('circle').attr({

@@ -1,7 +1,7 @@
 (function(){
   var used = [[],[],[]];
   var number = 0;
-  function addAtom(xf,yf, r){
+  var addAtom = function(xf,yf, r){
     var genpos = function(){
       var posY = Math.floor(Math.random()*3) - 1;
       var posX = Math.floor(Math.random()*5) - 2;
@@ -19,6 +19,7 @@
       "cx": x/2 - (xf=='undefined'?genpos()[0]:xf)*x/6,
       "cy": y/2 - (yf=='undefined'?genpos()[1]:yf)*x/6,
       "class": "otdel-items atom",
+      "file": "desc.html",
       "r": r || x/15
     });
 
@@ -83,23 +84,36 @@
       return false;
     }
   }
-    addAtom(-1,-1);
-    addAtom(1,1);
-    addAtom(0,0);
-    addAtom(-1,1);
+  window.renderotdel = function( otdel ){
+    stage.selectAll('circle').remove();
 
-
-  $('.otdel-items').map(function(){
-    console.log($(this));
-  });
-
-  $('.otdel-items').on({
-    'mousemove': function(e){
-      fullinfopanel.style("visibility", "visible");
-      fullinfopanel.style("top", "0px").style("left",(e.pageX+ ( clickpos(e.pageX,e.pageY)[0]? -10-x/2: 10 ) )+"px");
-    },
-    'mouseout': function(){
-      fullinfopanel.style("visibility", "hidden");
+    var range = [
+      [-1,-1],
+      [-1,0],
+      [0,-1],
+      [0,0],
+      [0,1],
+      [1,0],
+      [-1,1],
+      [1,-1],
+      [1,1]
+    ];
+    for(var n in range){
+      addAtom(range[n][0],range[n][1]);
     }
-  })
+
+    $('.otdel-items').on({
+      'mouseenter': function(e){
+        if($(this).attr('file'))
+        socket.emit( 'fullinfopanel', $(this).attr('file'));
+      },
+      'mousemove': function(e){
+        fullinfopanel.style("visibility", "visible");
+        fullinfopanel.style("top", "0px").style("left",(e.pageX+ ( clickpos(e.pageX,e.pageY)[0]? -10-x/2: 10 ) )+"px");
+      },
+      'mouseout': function(){
+        fullinfopanel.style("visibility", "hidden");
+      }
+    })
+  }
 })();

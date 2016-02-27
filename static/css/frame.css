@@ -11,6 +11,7 @@
 }
 .frame .photo {
   max-width: 80%;
+  max-height: 40vh;
   margin: auto;
   margin-top: 20px;
   margin-bottom: 0px;

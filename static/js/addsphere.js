@@ -1,7 +1,7 @@
 (function(){
   var used = [[],[],[]];
   var number = 0;
-  var addAtom = function(xf,yf, r){
+  var addAtom = function(xf,yf, r , file){
     var genpos = function(){
       var posY = Math.floor(Math.random()*3) - 1;
       var posX = Math.floor(Math.random()*5) - 2;
@@ -19,9 +19,18 @@
       "cx": x/2 - (xf=='undefined'?genpos()[0]:xf)*x/6,
       "cy": y/2 - (yf=='undefined'?genpos()[1]:yf)*x/6,
       "class": "otdel-items atom",
-      "file": "desc.html",
+      "file": file || "desc.html",
       "r": r || x/15
     });
+
+    // var atom = stage.append("image")
+    //                 .attr("xlink:href", "images/test1.svg")
+    //                 .attr({
+    //                   "x": x/2 - (xf=='undefined'?genpos()[0]:xf)*x/6,
+    //                   "y": y/2 - (yf=='undefined'?genpos()[1]:yf)*x/6,
+    //                   "width": r || x/15,
+    //                   "height": r || x/15
+    //                 });
 
     resf.push(function(){
       atom.attr({
@@ -99,8 +108,16 @@
       [1,1]
     ];
     for(var n in range){
+      if(range[n][0]==0)
+      addAtom(range[n][0],range[n][1], 40 , "one.html");
+      else
       addAtom(range[n][0],range[n][1]);
     }
+
+    // d3.xml("images/test1.svg", "image/svg+xml", function(error, xml) {
+    //   if (error) throw error;
+    //   var el = xml.documentElement;
+    // });
 
     $('.otdel-items').on({
       'mouseenter': function(e){

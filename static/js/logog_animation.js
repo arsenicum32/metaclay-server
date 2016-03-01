@@ -128,21 +128,31 @@
   var timer = 0;
 
   for(var i in paths){
-    pathanim[pathanim.length] = {x: rand(x), y: rand(y), path: paths[i]};
-    paths[i].attr('transform','translate('+pathanim[i].x+','+pathanim[i].y+')');
+    // pathanim[pathanim.length] = {x: rand(x), y: rand(y), path: paths[i]};
+    // paths[i].attr('transform','translate('+pathanim[i].x+','+pathanim[i].y+')');
+
+    paths[i].on('mouseover', function(){
+      d3.select(this).attr('transform','translate('+ (Math.random()*40 - 20) +','+ (Math.random()*40 - 20) +')');
+    });
+    paths[i].on('mouseout', function(){
+      d3.select(this)
+      .transition()
+      .attr('transform','translate(0,0)')
+      .duration(500);
+    });
   };
-  var animation = setInterval(function(){
-    timer++;
-    for( var i in pathanim){
-      pathanim[i].x>0?pathanim[i].x -= timer:pathanim[i].x += timer;
-      pathanim[i].y>0?pathanim[i].y -= timer:pathanim[i].y += timer;
-      pathanim[i].path.attr('transform','translate('+pathanim[i].x+','+pathanim[i].y+')');
-    }
-    if(timer>25){
-      clearInterval(animation);
-      for( var i in paths){
-        paths[i].attr('transform','translate(0,0)');
-      }
-    }
-  }, 12);
+  // var animation = setInterval(function(){
+  //   timer++;
+  //   for( var i in pathanim){
+  //     pathanim[i].x>0?pathanim[i].x -= timer:pathanim[i].x += timer;
+  //     pathanim[i].y>0?pathanim[i].y -= timer:pathanim[i].y += timer;
+  //     pathanim[i].path.attr('transform','translate('+pathanim[i].x+','+pathanim[i].y+')');
+  //   }
+  //   if(timer>25){
+  //     clearInterval(animation);
+  //     for( var i in paths){
+  //       paths[i].attr('transform','translate(0,0)');
+  //     }
+  //   }
+  // }, 12);
 })();

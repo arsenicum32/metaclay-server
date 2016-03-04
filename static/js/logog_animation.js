@@ -5,6 +5,10 @@
 
   window.logog = navpanel.append('g');
 
+  logog.on('click', function(){
+    window.location.href = '/about';
+  });
+
 
   var path1 = logog.append("path").attr({
     class: " st3 ",

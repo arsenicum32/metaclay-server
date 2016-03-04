@@ -14,3 +14,8 @@
    stroke-width : 3;
    fill :  none ;
 }
+.hamburger{
+  stroke: #ccc;
+  stroke-width: 3;
+  fill: #eee;
+}

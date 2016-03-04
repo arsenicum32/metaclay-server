@@ -1,6 +1,7 @@
 (function(){
   function addPlanet(orb , pla){
     var nav = navpanel.append('g');
+
     if(orb.draw){
       var orbit = nav.append('circle').attr({
         "cx": x/2,
@@ -64,6 +65,17 @@
 
     var clickcount = 0;
 
+    // Заказчик: неоходимо увеличить меню навигации в 2 раза, что бы было понятно, что надо на него тыкать...
+    // Я: окееей
+    resf.push(function(){
+      if(!clickcount){
+        if(x>y*1.2)
+        navpanel.attr('transform', 'scale(2,2) translate(-'+x/4+',-'+y/4+')');
+        else
+        navpanel.attr('transform', 'scale(1,1)');
+      }
+    });
+
     for(var i in planet){
       planet[i].on('mouseover', function(){
         var current = pla[i].r || 30;
@@ -89,17 +101,17 @@
         }else{
           var tmr = 0;
           var inter = setInterval( function(){
-            tmr<0.5?tmr+=0.005:clearInterval(inter);
+            tmr<0.25?tmr+=0.005:clearInterval(inter);
             for(var n in timer){
               timer[n]+=tmr;
             }
-          },10);
+          },20);
         }
 
         renderotdel( $(this).attr('name') );
         currentSel.text( $(this).attr('name') ); ////////////////////////   переменная name отвечает за название раздела
         socket.emit('loc', $(this).attr('name') );
-        rletter(currentSel);
+        rletter(currentSel, 20);
         //drawPath.draw([[$(this).attr('cx'),$(this).attr('cy')],[200,200],[300,300]]); /////////////////////////////////////////
       });
       planet[i].on('mousemove', function(){
@@ -118,7 +130,7 @@
   }
 
   function rletter(obj , end){    //////  делаем глитч-текст
-    var strg = 'abcdefghijklmnopqrstuvwxyz';
+    var strg = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЗЖИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
     var timer = 0;
     var fin = obj.text();
     var end = end || 100;
@@ -136,7 +148,7 @@
         }
       }
 
-    }, 10);
+    }, 50);
   }
 
 

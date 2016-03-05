@@ -58,7 +58,7 @@
   });
 
   hamburger.on('click', function(){
-    window.location.href = '/about';
+    effects.go('/about');
   })
 
   window.clickpos = function(x, y) {

@@ -6,8 +6,12 @@
   window.logog = navpanel.append('g');
 
   logog.on('click', function(){
-    window.location.href = '/about';
+    effects.go('/about');
   });
+
+  resf.push(function(){
+    logog.attr('transform','translate('+(x/2  - 45)+','+(y/2 - 45)+')');
+  })
 
 
   var path1 = logog.append("path").attr({

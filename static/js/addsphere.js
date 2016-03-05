@@ -108,9 +108,6 @@
       [1,1]
     ];
     for(var n in range){
-      if(range[n][0]==0 && range[n][1]==0) addAtom(range[n][0],range[n][1], 40 , "one.html");
-      else if(range[n][0]==0 && range[n][1]==1) addAtom(range[n][0],range[n][1], 40 , "two.html");
-      else
       addAtom(range[n][0],range[n][1]);
     }
 
@@ -121,8 +118,9 @@
 
     $('.otdel-items').on({
       'mouseenter': function(e){
-        if($(this).attr('file'))
-        socket.emit( 'fullinfopanel', $(this).attr('file'));
+        if($(this).attr('file')){
+          socket.emit( 'fullinfopanel', $(this).attr('file'));
+        }
       },
       'mousemove': function(e){
         fullinfopanel.style("visibility", "visible");

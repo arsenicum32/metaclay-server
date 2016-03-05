@@ -15,10 +15,24 @@
     x = $(window).width();
     y = $(window).height();
     svg.attr("width", x).attr("height", y);
-    logog.attr('transform','translate('+(x/2  - 45)+','+(y/2 - 45)+')');
     for(var i in resf){
       resf[i]();
     }
   });
+
+
+  window.effects = {
+    go: function(path){
+      svg.append('rect').attr({
+        'fill': 'white',
+        'x': 0,
+        'y': 0,
+        'width': x,
+        'height': y
+      }).style('opacity', 0).transition().style('opacity', 1).each('end', function(){
+        window.location.href = path;
+      });
+    }
+  }
 
 })();

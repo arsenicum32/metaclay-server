@@ -1,0 +1,14 @@
+.razdel{
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.flexblock{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.flexblock p{
+  width: 50px;
+  line-height: 1em;
+}

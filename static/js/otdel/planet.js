@@ -44,7 +44,8 @@
         "cx": x/2,
         "cy": y/2 + orb.r,
         "name": "planet"+i,
-        "class": "planet",
+        "texts": "эта планета - один из отделов даже под номером "+i,
+        "class": "planet texts",
         "r": pla[i].r || 30
       }));
     }

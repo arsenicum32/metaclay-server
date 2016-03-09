@@ -20,7 +20,6 @@
     }
   });
 
-
   window.effects = {
     go: function(path){
       svg.append('rect').attr({
@@ -37,5 +36,40 @@
       d3.selectAll('p').transition().style('opacity', '0');
     }
   }
+
+})();
+
+
+(function(){  // такая приятная штука - пишется текст слева снизу
+  window.textspeak = d3.select('body').append('p').attr({
+    'class': 'textspeak',
+  }).text('');
+
+  textspeak.fully = function(text){
+    var el = this;
+    if(text){
+      //el.text(text);
+      var index = 0;
+      if(el.inter) clearInterval(el.inter);
+      el.inter = setInterval(function(){
+          index<text.length?index+=0.1:clearInterval(inter);
+          el.text( text.substring(0,  Math.floor(index)   ) );
+        }, 10);
+    }else{
+      if(el.inter) clearInterval(el.inter);
+      el.text( "" );
+    }
+  }
+
+  $(document).ready( function(){
+    $('.texts').on({
+      'mouseenter': function(){
+        textspeak.fully($(this).attr('texts'));
+      },
+      'mouseleave': function(){
+        textspeak.fully();
+      }
+    })
+  });
 
 })();

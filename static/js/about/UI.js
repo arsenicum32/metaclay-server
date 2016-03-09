@@ -27,7 +27,6 @@
       });
     }
   });
-
   hamburger.on('click', function(){
     effects.go('/');
   });

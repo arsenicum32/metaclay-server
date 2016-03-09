@@ -33,6 +33,8 @@
         window.location.href = path;
       });
       d3.selectAll('img').transition().style('opacity', '0');
+      d3.selectAll('div').transition().style('opacity', '0');
+      d3.selectAll('p').transition().style('opacity', '0');
     }
   }
 

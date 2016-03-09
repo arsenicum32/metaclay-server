@@ -23,6 +23,12 @@ body{
   min-width: 350px;
   height: 100vh;
 }
+.nocopy {
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */
+}
 .st1{fill:#F7C059;}
 .st2{fill:#FFFFFF;}
 .st3{fill:#4A96CD;}

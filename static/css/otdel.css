@@ -8,3 +8,40 @@
   top: 0;
   left: 20vw;
 }
+.flexmiddle{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.column{
+  -webkit-flex-flow: column;
+  -webkit-flex-flow: column;
+      -ms-flex-flow: column;
+  flex-flow: column;
+  -webkit-justify-content: center;
+  -webkit-justify-content: center;
+      -ms-justify-content: center;
+  justify-content: center;
+}
+.pdet{
+  text-align: center;
+  font-weight: lighter;
+  font-size: .5em;
+  color: #333;
+}
+.pdetb{
+  text-align: center;
+  font-weight: bold;
+  line-height: 1em;
+  padding: 0;
+  margin: 0;
+}

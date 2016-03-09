@@ -1,7 +1,7 @@
 (function(){
   var used = [[],[],[]];
   var number = 0;
-  var addAtom = function(xf,yf, data){   // data.r = радиус кружка, data.file = файл открывающийся при наведении... data.img = картинка у кружка, data.text = текст кружка, data.html = всё поянтно 
+  var addAtom = function(xf,yf, data){   // data.r = радиус кружка, data.file = файл открывающийся при наведении... data.img = картинка у кружка, data.text = текст кружка, data.html = всё поянтно
     var genpos = function(){
       var posY = Math.floor(Math.random()*3) - 1;
       var posX = Math.floor(Math.random()*5) - 2;
@@ -21,27 +21,88 @@
       "cx": x/2 - (xf=='undefined'?genpos()[0]:xf)*x/6,
       "cy": y/2 - (yf=='undefined'?genpos()[1]:yf)*x/6,
       "class": "otdel-items atom",
-      "file": data.file || "desc.html",
       "r": data.r || x/15
     });
 
-    var atomhtml = d3.select('body').append('img').attr({
-      'class': 'otdel-img otdel-items',
-      'src': "http://placehold.it/200x200?text=image"
-    });
-
-    atomhtml.setpos = function(xxx,yyy){
-      atomhtml.style({
-        'left': xxx - atomhtml.style('width').slice(0, -2)/2 + "px",
-        'top': yyy - atomhtml.style('width').slice(0, -2)/2 + "px"
-      });
-      //console.log( atomhtml.style('width').slice(0, -2)/2 );
+    if(data.file){
+      atom.attr('file', data.file);
     }
-    atomhtml.setscale = function(s){
-      atomhtml.style({
-        'width': s*1.9 + "px",
-        "height": s*1.9 + "px"
+
+    var atomhtml;
+
+
+    if(data.hasOwnProperty("img")){
+      atomhtml = d3.select('body').append('img').attr({
+        'class': 'otdel-img otdel-items nocopy',
+        'src': data.img || "http://placehold.it/200x200?text=image"
       });
+      makeasetter(1);
+
+    }else if(data.hasOwnProperty("text")){
+      atomhtml = stage.append('text').attr({
+        'class': 'otdel-items',
+        "font-size": "12px",
+        "text-anchor":"middle",
+        "textLength": (data.r || x/15)*2,
+        "fill": "black",
+        "x": 100,
+        "y": 100
+      }).text(data.text);
+      makeasetter(0);
+
+    }else if(data.html){ // html: {attr: {}, body: ""}
+      atomhtml = d3.select('body').append('div')
+      .attr(data.html.attr)
+      .attr('class', 'otdel-img flexmiddle column otdel-items')
+      .html(data.html.body);
+      makeasetter(1);
+    }else{
+      atomhtml = stage.append('text').attr({
+        'class': 'otdel-items',
+        "font-size": "20px",
+        "text-anchor":"middle",
+        "fill": "#ccc",
+        "x": 100,
+        "y": 100
+      }).text("пусто");
+      makeasetter(0);
+    }
+
+    if(data.file){
+      atomhtml.attr('file', data.file);
+    }
+
+    function makeasetter(b){ // эта функция добавляет геттеры и сеттеры для изменения масштаба и позиции добавленного
+      if(b){ // объекта в зависимости от того svg он или блочный
+        atomhtml.setpos = function(xxx,yyy){
+          atomhtml.style({
+            'left': xxx - atomhtml.style('width').slice(0, -2)/2 + "px",
+            'top': yyy - atomhtml.style('width').slice(0, -2)/2 + "px"
+          });
+          //console.log( atomhtml.style('width').slice(0, -2)/2 );
+        }
+        atomhtml.setscale = function(s){
+          atomhtml.style({
+            'width': s*1.9 + "px",
+            "height": s*1.9 + "px"
+          });
+        }
+      }else{
+        atomhtml.setpos = function(xxx,yyy){
+          atomhtml.attr({
+            'x': xxx,
+            'y': yyy
+          });
+          //console.log( atomhtml.style('width').slice(0, -2)/2 );
+        }
+        atomhtml.setscale = function(s){
+          atomhtml.attr({
+            'width': s,
+            "height": s,
+            "radius": s
+          });
+        }
+      }
     }
 
     resf.push(function(){
@@ -94,18 +155,18 @@
     stage.selectAll('circle').remove();
 
     var range = [
-      [-1,-1],
-      [-1,0],
-      [0,-1],
-      [0,0],
-      [0,1],
-      [1,0],
-      [-1,1],
-      [1,-1],
-      [1,1]
+      [-1,-1, {img : undefined}],
+      [-1,0, {img : undefined}],
+      [0,-1, {}],
+      [0,0, {html: {attr:{}, body: "<p class='pdetb' >об отделе</p><p class='pdet' >Руководитель</p>"}}],
+      [0,1, {}],
+      [1,0, {img : "/images/test.svg" , file: "desc.html"}],
+      [-1,1, {img : undefined}],
+      [1,-1, {img : undefined}],
+      [1,1, {img : undefined}]
     ];
     for(var n in range){
-      addAtom(range[n][0],range[n][1]);
+      addAtom(range[n][0],range[n][1], range[n][2]);
     }
 
     // d3.xml("images/test1.svg", "image/svg+xml", function(error, xml) {
@@ -120,8 +181,10 @@
         }
       },
       'mousemove': function(e){
-        fullinfopanel.style("visibility", "visible");
-        fullinfopanel.style("top", "0px").style("left",(e.pageX+ ( clickpos(e.pageX,e.pageY)[0]? -10-x/2: 10 ) )+"px");
+        if($(this).attr('file')){
+          fullinfopanel.style("visibility", "visible");
+          fullinfopanel.style("top", "0px").style("left",(e.pageX+ ( clickpos(e.pageX,e.pageY)[0]? -10-x/2: 10 ) )+"px");
+        }
       },
       'mouseout': function(){
         fullinfopanel.style("visibility", "hidden");

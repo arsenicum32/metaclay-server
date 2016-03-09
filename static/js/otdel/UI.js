@@ -7,10 +7,6 @@
     .append("div").attr('class', 'fullinfopanel frame')
     .html('error');
 
-  socket.on('fullinfopanel', function(msg){
-    fullinfopanel.html(msg);
-  });
-
   var hamburger = svg.append('g');
 
   var crs = hamburger.append('circle').attr({

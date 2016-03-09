@@ -7,23 +7,9 @@
     <link rel="stylesheet" href='css/svg-d3.css' />
     <link rel="stylesheet" href='css/about.css' />
     <script type='text/javascript' src='js/lib/jquery2.2.js'></script>
-    <script type='text/javascript' src='js/lib/socket.io.js'></script>
     <script type='text/javascript' src='js/lib/d3.js'></script>
   </head>
   <body>
-    <script>
-      var socket = io('/test');
-
-      $(document).ready(function(){
-        send(window.location.href );
-      });
-      socket.on('getdata', function(msg){
-        console.log(msg);
-      });
-      function send(msg){
-        socket.emit('getdata', msg);
-      }
-    </script>
     <script type='text/javascript' src='js/index.js'></script>
     <script type='text/javascript' src='js/about/menu.js'></script>
     <script type='text/javascript' src='js/about/UI.js'></script>

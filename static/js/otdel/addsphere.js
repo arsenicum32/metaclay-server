@@ -177,7 +177,10 @@
     $('.otdel-items').on({
       'mouseenter': function(e){
         if($(this).attr('file')){
-          socket.emit( 'fullinfopanel', $(this).attr('file'));
+          $.get('/g/'+ $(this).attr('file') , function(data){
+            fullinfopanel.html(data);
+            console.log(data);
+          })
         }
       },
       'mousemove': function(e){

@@ -19,11 +19,6 @@
     obj.attr("desc" , desc);
     obj.attr("file" , (file || 'desc.html'));
 
-    socket.on('fullinfopanel', function(msg){
-      if(obj.classed('active')) obj.html(msg);
-      else obj.html('<div class="flexblock" ><h1 class="razdel">'+text+'</h1><p>'+desc+'</p></div>');
-    });
-
     obj.attr('class', 'fullinfopanel frame')
       .style("visibility", "visible").style('line-height', '2em')
       .style("top", "0px").style("left", leftpos+"px")
@@ -46,7 +41,15 @@
           panels[n].classed('active', false);
         }
         d3.select(this).classed('active', true);
-        socket.emit('fullinfopanel', d3.select(this).attr('file') );
+        $.get('/g/'+ d3.select(this).attr('file'), function(data){
+          $('.fullinfopanel').each(function(){
+            if($(this).hasClass('active')){
+              $(this).html(data);
+            }else{
+              $(this).html('<div class="flexblock" ><h1 class="razdel">'+$(this).attr('text')+'</h1><p>'+$(this).attr('desc')+'</p></div>');
+            }
+          })
+        });
         d3.select(this).transition().style('left' , x/8 + "px" ).duration(980);
       }
     });

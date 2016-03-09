@@ -116,7 +116,7 @@
 
         renderotdel( $(this).attr('name') );
         currentSel.text( $(this).attr('name') ); ////////////////////////   переменная name отвечает за название раздела
-        socket.emit('loc', $(this).attr('name') );
+        //socket.emit('loc', $(this).attr('name') );
         rletter(currentSel, 20);
         //drawPath.draw([[$(this).attr('cx'),$(this).attr('cy')],[200,200],[300,300]]); /////////////////////////////////////////
       });
@@ -136,7 +136,7 @@
   }
 
   function rletter(obj , end){    //////  делаем глитч-текст
-    var strg = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЗЖИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
+    var strg = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЗЖИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ0123456789';
     var timer = 0;
     var fin = obj.text();
     var end = end || 100;

@@ -63,17 +63,8 @@
 
     setRotation();
 
-    var clickcount = 0;
-
-    // Заказчик: неоходимо увеличить меню навигации в 2 раза, что бы было понятно, что надо на него тыкать...
-    // Я: окееей
-    resf.push(function(){
-      if(!clickcount){
-        if(x>y*1.2)
-        navpanel.attr('transform', 'scale(2,2) translate(-'+x/4+',-'+y/4+')');
-        else
-        navpanel.attr('transform', 'scale(1,1)');
-      }
+    navpanel.attr({
+      "transform": "scale( "+0.35+" "+0.35+") translate(0 0)"
     });
 
     for(var i in planet){
@@ -88,35 +79,21 @@
       });
 
       planet[i].on('click', function(){
-        clickcount++;
-        var obj = $(this);
-        if(clickcount===1){
-          var scale=1;
-          var inter = setInterval( function(){
-            if(scale>0.35) scale-=0.05;
-            else{
-              clearInterval(inter);
-              effects.go('/otdel/'+ obj.attr('name') );
-            }
-            navpanel.attr({
-              "transform": "scale( "+scale+" "+scale+") translate(0 0)"
-            });
-            stage.attr('visibility',"visible");
-          },10);
-        }else{
           var tmr = 0;
+          var obj = $(this);
           var inter = setInterval( function(){
-            tmr<0.25?tmr+=0.005:clearInterval(inter);
+            if(tmr<0.25){
+              tmr+=0.005;
+            }else{
+              clearInterval(inter);
+              effects.go('/otdel/'+obj.attr('name'));
+            }
             for(var n in timer){
               timer[n]+=tmr;
             }
           },20);
-        }
-
-        renderotdel( $(this).attr('name') );
-        currentSel.text( $(this).attr('name') ); ////////////////////////   переменная name отвечает за название раздела
-        socket.emit('loc', $(this).attr('name') );
-        rletter(currentSel, 20);
+          currentSel.text( $(this).attr('name') ); ////////////////////////   переменная name отвечает за название раздела
+          rletter(currentSel, 20);
         //drawPath.draw([[$(this).attr('cx'),$(this).attr('cy')],[200,200],[300,300]]); /////////////////////////////////////////
       });
       planet[i].on('mousemove', function(){
@@ -164,4 +141,9 @@
      {r: 16, speed: 0.25, start: pi*6},
      {r: 16, speed: 0.25, start: pi*8}
     ]);
+
+  $(document).ready(function(){
+    renderotdel( null );
+    stage.attr('visibility',"visible");
+  });
 })();

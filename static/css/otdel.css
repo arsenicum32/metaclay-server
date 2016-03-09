@@ -1,0 +1,10 @@
+.otdel-img{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  /*background: red;*/
+  opacity: 1;
+  position: absolute;
+  top: 0;
+  left: 20vw;
+}

@@ -32,6 +32,7 @@
       }).style('opacity', 0).transition().style('opacity', 1).each('end', function(){
         window.location.href = path;
       });
+      d3.selectAll('img').transition().style('opacity', '0');
     }
   }
 

@@ -26,6 +26,10 @@ app.get('/about', function(req, res, next){
   res.sendFile(__dirname + '/about.html');
 });
 
+app.get('/otdel/:id', function(req, res, next){
+  res.sendFile(__dirname + '/otdel.html');
+});
+
 
 app.get('/', function(req, res, next){
   res.sendFile(__dirname + '/index.html');

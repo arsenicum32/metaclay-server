@@ -9,6 +9,20 @@ var http = require('http').Server(app);
 app.use('/', express.static(__dirname + '/static'));
 app.use(cors());
 
+
+app.get('/gitpull123', function(req, res, next){
+  var spawn = require('child_process').spawn;
+  var gits = spawn('git', ['pull']);
+  gits.stdout.on('data', function(data) {
+  });
+  gits.stderr.on('data', function(data) {
+  });
+  gits.on('close', function(code) {
+  });
+  res.send("command send to server...");
+});
+
+
 app.get('/data', function(req, res, next){
   fs.stat( __dirname + '/static/sitemap.json' , function(err, stat){
     if(err) {

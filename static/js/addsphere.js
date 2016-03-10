@@ -22,16 +22,6 @@
       "file": file || "desc.html",
       "r": r || x/15
     });
-
-    // var atom = stage.append("image")
-    //                 .attr("xlink:href", "images/test1.svg")
-    //                 .attr({
-    //                   "x": x/2 - (xf=='undefined'?genpos()[0]:xf)*x/6,
-    //                   "y": y/2 - (yf=='undefined'?genpos()[1]:yf)*x/6,
-    //                   "width": r || x/15,
-    //                   "height": r || x/15
-    //                 });
-
     resf.push(function(){
       atom.attr({
         "cx": x/2 - (xf=='undefined'?genpos()[0]:xf)*x/6,
@@ -41,7 +31,6 @@
       startx = parseInt(atom.attr("cx"));
       starty = parseInt(atom.attr("cy"));
     });
-
     var tmrca = 0;
     var createanim  = setInterval(function(){
       tmrca<(r || x/15)?tmrca+=0.55:clearInterval(createanim);
@@ -110,25 +99,5 @@
     for(var n in range){
       addAtom(range[n][0],range[n][1]);
     }
-
-    // d3.xml("images/test1.svg", "image/svg+xml", function(error, xml) {
-    //   if (error) throw error;
-    //   var el = xml.documentElement;
-    // });
-
-    $('.otdel-items').on({
-      'mouseenter': function(e){
-        if($(this).attr('file')){
-          socket.emit( 'fullinfopanel', $(this).attr('file'));
-        }
-      },
-      'mousemove': function(e){
-        fullinfopanel.style("visibility", "visible");
-        fullinfopanel.style("top", "0px").style("left",(e.pageX+ ( clickpos(e.pageX,e.pageY)[0]? -10-x/2: 10 ) )+"px");
-      },
-      'mouseout': function(){
-        fullinfopanel.style("visibility", "hidden");
-      }
-    })
   }
 })();

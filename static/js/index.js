@@ -11,14 +11,16 @@
   window.stage = svg.append('g').attr('visibility','hidden');
   window.navpanel = svg.append('g');
 
-  $(window).on('resize load', function() {
+  window.redrawall =  function() {
     x = $(window).width();
     y = $(window).height();
     svg.attr("width", x).attr("height", y);
     for(var i in resf){
       resf[i]();
     }
-  });
+  }
+
+  $(window).on('resize load', redrawall );
 
   window.effects = {
     go: function(path){
@@ -34,6 +36,9 @@
       d3.selectAll('img').transition().style('opacity', '0');
       d3.selectAll('div').transition().style('opacity', '0');
       d3.selectAll('p').transition().style('opacity', '0');
+    },
+    lurl: function(){
+      return decodeURI( window.location.href).split('/')[ window.location.href.split('/').length - 1 ];
     }
   }
 
@@ -52,7 +57,7 @@
       var index = 0;
       if(el.inter) clearInterval(el.inter);
       el.inter = setInterval(function(){
-          index<text.length?index+=0.1:clearInterval(inter);
+          index<text.length?index+=0.1:clearInterval(el.inter);
           el.text( text.substring(0,  Math.floor(index)   ) );
         }, 10);
     }else{
@@ -61,7 +66,7 @@
     }
   }
 
-  $(document).ready( function(){
+  textspeak.rebind = function(){
     $('.texts').on({
       'mouseenter': function(){
         textspeak.fully($(this).attr('texts'));
@@ -70,6 +75,29 @@
         textspeak.fully();
       }
     })
-  });
+  }
 
+})();
+
+(function(){ //////  делаем глитч-текст
+  window.rletter = function(obj , end){
+    var strg = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЗЖИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
+    var timer = 0;
+    var fin = obj.text();
+    var end = end || 100;
+    var inter = setInterval( function(){
+      timer<end?timer++:clearInterval(inter);
+      for(var n in [0,1,2,3]){
+        if(timer < end - 12){
+          var text = obj.text();
+          var index = n;
+          text = text.substr(0, index) + strg[ Math.floor( Math.random()* strg.length ) ] + text.substr(index + 1);
+          obj.text( text );
+        }
+        else {
+          obj.text( fin );
+        }
+      }
+    }, 50);
+  }
 })();

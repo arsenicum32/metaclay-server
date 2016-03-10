@@ -34,7 +34,7 @@
     if(data.hasOwnProperty("img")){
       atomhtml = d3.select('body').append('img').attr({
         'class': 'otdel-img otdel-items nocopy',
-        'src': data.img || "http://placehold.it/200x200?text=image"
+        'src': data.img || "/images/image.png"
       });
       makeasetter(1);
 
@@ -154,25 +154,10 @@
   window.renderotdel = function( otdel ){
     stage.selectAll('circle').remove();
 
-    var range = [
-      [-1,-1, {img : undefined}],
-      [-1,0, {img : undefined}],
-      [0,-1, {}],
-      [0,0, {html: {attr:{}, body: "<p class='pdetb' >об отделе</p><p class='pdet' >Руководитель</p>"}}],
-      [0,1, {}],
-      [1,0, {img : "/images/test.svg" , file: "desc.html"}],
-      [-1,1, {img : undefined}],
-      [1,-1, {img : undefined}],
-      [1,1, {img : undefined}]
-    ];
+    var range = otdel;
     for(var n in range){
       addAtom(range[n][0],range[n][1], range[n][2]);
     }
-
-    // d3.xml("images/test1.svg", "image/svg+xml", function(error, xml) {
-    //   if (error) throw error;
-    //   var el = xml.documentElement;
-    // });
 
     $('.otdel-items').on({
       'mouseenter': function(e){

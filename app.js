@@ -10,13 +10,31 @@ app.use('/', express.static(__dirname + '/static'));
 app.use(cors());
 
 
+app.get('/data', function(req, res, next){
+  fs.stat( __dirname + '/static/sitemap.json' , function(err, stat){
+    if(err) {
+      res.json( {error: err} );
+    }
+    if(stat){
+      fs.readFile( __dirname + '/static/sitemap.json' , function(err, data){
+        if (err){
+          res.json({error: err});
+        }
+        res.json( JSON.parse(data) );
+      });
+    }else{
+      res.json({error: "no file"});
+    }
+  });
+});
+
 app.get('/g/:file', function(req, res, next){
-  fs.stat( __dirname + '/static/html/'+req.params.file , function(err, stat){
+  fs.stat( __dirname + '/static/read/'+req.params.file , function(err, stat){
     if(err) {
       res.send( err );
     }
     if(stat){
-      fs.readFile( __dirname + '/static/html/'+req.params.file , function(err, data){
+      fs.readFile( __dirname + '/static/read/'+req.params.file , function(err, data){
         if (err){
           res.send(err);
         }
@@ -47,6 +65,9 @@ app.get('/otdel/:id', function(req, res, next){
   res.sendFile(__dirname + '/otdel.html');
 });
 
+app.get('/nodoor', function(req, res, next){
+  res.sendFile(__dirname + '/index.html');
+});
 
 app.get('/', function(req, res, next){
   res.sendFile(__dirname + '/index.html');

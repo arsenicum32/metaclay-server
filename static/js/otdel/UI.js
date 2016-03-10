@@ -36,7 +36,7 @@
   });
 
   hamburger.on('click', function(){
-    effects.go('/');
+    effects.go('/nodoor');
   });
 
   window.clickpos = function(x, y) {

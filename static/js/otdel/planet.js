@@ -43,8 +43,8 @@
       planet.push(nav.append('circle').attr({
         "cx": x/2,
         "cy": y/2 + orb.r,
-        "name": "planet"+i,
-        "texts": "эта планета - один из отделов даже под номером "+i,
+        "name": pla[i].name || "planet"+i,
+        "texts": pla[i].desc || "небольшое описание отдела, которое ненавязчиво рассказывает пользователю про то, что это не просто фан под номером "+i,
         "class": "planet texts",
         "r": pla[i].r || 30
       }));
@@ -87,7 +87,7 @@
               tmr+=0.005;
             }else{
               clearInterval(inter);
-              effects.go('/otdel/'+obj.attr('name'));
+              if(effects.lurl() !=  obj.attr('name') ) effects.go('/otdel/'+obj.attr('name'));
             }
             for(var n in timer){
               timer[n]+=tmr;
@@ -112,39 +112,20 @@
     }
   }
 
-  function rletter(obj , end){    //////  делаем глитч-текст
-    var strg = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЗЖИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
-    var timer = 0;
-    var fin = obj.text();
-    var end = end || 100;
-    var inter = setInterval( function(){
-      timer<end?timer++:clearInterval(inter);
-      for(var n in [0,1,2,3]){
-        if(timer < end - 12){
-          var text = obj.text();
-          var index = n;
-          text = text.substr(0, index) + strg[ Math.floor( Math.random()* strg.length ) ] + text.substr(index + 1);
-          obj.text( text );
-        }
-        else {
-          obj.text( fin );
-        }
-      }
-
-    }, 50);
-  }
-
-
   var pi = 3.14;
-  addPlanet({r: 100 , draw: true} ,  // r = x/6
-    [{r: 16, speed: 0.25, start: pi*2},
-     {r: 16, speed: 0.25, start: pi*4},
-     {r: 16, speed: 0.25, start: pi*6},
-     {r: 16, speed: 0.25, start: pi*8}
-    ]);
+  $.get('/data', function(data){
+    var menu = data.navigation;
+    for(var n in menu){
+      menu[n].r = 16; menu[n].speed = 0.25; menu[n].start = 2*pi*n;
+    }
+    addPlanet({r: 100 , draw: true} ,  menu );
+    textspeak.rebind();
+    redrawall();
 
-  $(document).ready(function(){
-    renderotdel( null );
-    stage.attr('visibility',"visible");
+    $(document).ready(function(){
+      renderotdel( data.otdel[effects.lurl()] );
+      stage.attr('visibility',"visible");
+    });
+
   });
 })();

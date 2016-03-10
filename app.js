@@ -14,14 +14,12 @@ app.get('/gitpull', function(req, res, next){
   var spawn = require('child_process').spawn;
   var gits = spawn('git', ['pull']);
   gits.stdout.on('data', function(data) {
-    res.send(data);
   });
   gits.stderr.on('data', function(data) {
-    res.send(data);
   });
   gits.on('close', function(code) {
-    res.send(data);
   });
+  res.send("command send to server...");
 });
 
 

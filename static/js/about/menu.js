@@ -4,6 +4,8 @@
   var shortview = 30;
   var longview = 70;
 
+  var activeobject;
+
   function addPage(n , dd){
     var text = (dd.text || "название раздела").split("").join("<br>");
     var desc = (dd.desc || "краткое описание раздела не очень большое, но и не такое маленькое, чтобы не заметить");
@@ -24,6 +26,14 @@
       .style("visibility", "visible")  //.style('line-height', '2em')
       .style("top", "0px").style("left", leftpos+"px")
       .html('<div class="flexblock" ><h1 class="razdel">'+text+'</h1><p>'+desc+'</p></div>');
+
+    if(dd.active){
+      $.get('/g/'+ obj.attr('file'), function(data){
+          obj.html(data);
+      });
+      obj.classed('active', true)
+      .transition().style('left' , x/8 + "px" ).duration(980);
+    }
 
     obj.on({
       'mouseover': function(){
@@ -64,7 +74,7 @@
       else {
         obj.style("left" , x/8 + "px");
       }
-    })
+    });
 
     return obj;
   }
@@ -73,6 +83,7 @@
     for(var n in data.about){
       panels.push(addPage( data.about.length - n , data.about[n] ));
     }
+    if(activeobject) $(activeobject).click();
   })
 
   //

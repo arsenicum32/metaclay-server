@@ -4,9 +4,10 @@
   var shortview = 30;
   var longview = 70;
 
-  function addPage(n , text, desc , file){
-    var text = (text || "название раздела").split("").join("<br>");
-    var desc = (desc || "краткое описание раздела не очень большое, но и не такое маленькое, чтобы не заметить");
+  function addPage(n , dd){
+    var text = (dd.text || "название раздела").split("").join("<br>");
+    var desc = (dd.desc || "краткое описание раздела не очень большое, но и не такое маленькое, чтобы не заметить");
+    var file = dd.file;
     var obj = d3.select("body")
       .append("div");
 
@@ -19,8 +20,8 @@
     obj.attr("desc" , desc);
     obj.attr("file" , (file || 'desc.html'));
 
-    obj.attr('class', 'fullinfopanel frame')
-      .style("visibility", "visible").style('line-height', '2em')
+    obj.attr('class', 'fullinfopanel')
+      .style("visibility", "visible")  //.style('line-height', '2em')
       .style("top", "0px").style("left", leftpos+"px")
       .html('<div class="flexblock" ><h1 class="razdel">'+text+'</h1><p>'+desc+'</p></div>');
 
@@ -36,21 +37,23 @@
         }
       },
       'click': function(){
-        for (var n in panels){
-          panels[n].transition().style("left", panels[n].attr("leftpos")+"px").duration(980);
-          panels[n].classed('active', false);
+        if(d3.select(this).classed('active')==false){
+          for (var n in panels){
+            panels[n].transition().style("left", panels[n].attr("leftpos")+"px").duration(980);
+            panels[n].classed('active', false);
+          }
+          $.get('/g/'+ d3.select(this).attr('file'), function(data){
+            $('.fullinfopanel').each(function(){
+              if($(this).hasClass('active')){
+                $(this).html(data);
+              }else{
+                $(this).html('<div class="flexblock" ><h1 class="razdel">'+$(this).attr('text')+'</h1><p>'+$(this).attr('desc')+'</p></div>');
+              }
+            })
+          });
+          d3.select(this).classed('active', true);
+          d3.select(this).transition().style('left' , x/8 + "px" ).duration(980);
         }
-        d3.select(this).classed('active', true);
-        $.get('/g/'+ d3.select(this).attr('file'), function(data){
-          $('.fullinfopanel').each(function(){
-            if($(this).hasClass('active')){
-              $(this).html(data);
-            }else{
-              $(this).html('<div class="flexblock" ><h1 class="razdel">'+$(this).attr('text')+'</h1><p>'+$(this).attr('desc')+'</p></div>');
-            }
-          })
-        });
-        d3.select(this).transition().style('left' , x/8 + "px" ).duration(980);
       }
     });
 
@@ -66,9 +69,15 @@
     return obj;
   }
 
-  panels.push(addPage(4, "раздел 4"));
-  panels.push(addPage(3, "раздел 3"));
-  panels.push(addPage(2, "раздел 2"));
-  panels.push(addPage(1, "раздел 1"));
+  $.get('/data', function(data){
+    for(var n in data.about){
+      panels.push(addPage( data.about.length - n , data.about[n] ));
+    }
+  })
+
+  //
+  // panels.push(addPage(3, "раздел 3"));
+  // panels.push(addPage(2, "раздел 2"));
+  // panels.push(addPage(1, "раздел 1"));
 
 })();

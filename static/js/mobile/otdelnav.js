@@ -1,4 +1,4 @@
-(function() {
+function navigator() {
   var col, n, rancol;
 
   col = new Array('#F5F5DC beige', '#FFE4C4 bisque', '#FFEBCD blanchedalmond', '#D2691E chocolate', '#FF7F50 coral', '#FFF8DC cornsilk', '#E9967A darksalmon', '#FFB6C1 lightpink', '#FFA07A lightsalmon', '#FAF0E6 linen', '#FFE4E1 mistyrose', '#FFE4B5 moccasin', '#FFDEAD navajowhite', '#FFEFD5 papayawhip', '#FFDAB9 peachpuff', '#FAA460 sandybrown', '#FF6347 tomato', '#F5DEB3 wheat');
@@ -14,7 +14,8 @@
   $('.section').on({
     "click": function(e) {
       var lf;
-      lf = e.clientX > $(this).width() / 2;
+      console.log(e);
+      lf = e.screenX > $(window).width() / 2;
       if (lf && n < $('.section').length) {
         n += 1;
       }
@@ -70,5 +71,4 @@
       });
     });
   });
-
-}).call(this);
+}

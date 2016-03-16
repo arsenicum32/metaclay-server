@@ -9,6 +9,14 @@
     effects.go('/about');
   });
 
+  logog.append('circle').attr({ // для того, что бы клик был уверенный
+    cx: 45,
+    cy: 45,
+    r: 90,
+    fill: 'red',
+    opacity: '0'
+  })
+
   resf.push(function(){
     logog.attr('transform','translate('+(x/2  - 45)+','+(y/2 - 45)+')');
   })

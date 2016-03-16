@@ -1,7 +1,8 @@
 body{
   margin:0;
   overflow: hidden;
-  font-family: Gill Sans;
+  font-family: Gill Sans, sans-serif;
+  font-family: "Goudy Bookletter 1911", sans-serif;
 }
 .tooltip{
   position:absolute;

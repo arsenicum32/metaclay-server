@@ -23,6 +23,11 @@ app.get('/gitpull123', function(req, res, next){
 });
 
 
+app.get('/mobile/odtel/:id', function(req,res,next){
+  res.sendFile(__dirname + '/mobileotdel.html');
+});
+
+
 app.get('/data', function(req, res, next){
   fs.stat( __dirname + '/static/sitemap.json' , function(err, stat){
     if(err) {

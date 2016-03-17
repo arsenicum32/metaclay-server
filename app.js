@@ -22,10 +22,6 @@ app.get('/gitpull123', function(req, res, next){
   res.send("command send to server...");
 });
 
-app.get('/mobile/odtel/:id', function(req,res,next){
-  res.sendFile(__dirname + '/mobileotdel.html');
-});
-
 
 app.get('/data', function(req, res, next){
   fs.stat( __dirname + '/static/sitemap.json' , function(err, stat){
@@ -74,7 +70,7 @@ app.get('/d/:file', function(req, res, next){
   });
 });
 
-app.get('/about', function(req, res, next){
+app.get('/about', checkForMobile , function(req, res, next){
   res.sendFile(__dirname + '/about.html');
 });
 
@@ -105,9 +101,9 @@ function checkForMobile(req, res, next) {
   var isMobile = isCallerMobile(req);
   if (isMobile) {
     if(req.params.id){
-      res.redirect('/mobile/odtel/'+req.params.id );
+      res.sendFile(__dirname + '/mobileotdel.html');
     }else{
-      res.redirect('/404');
+      res.sendFile(__dirname + '/aboutmobile.html');
     }
   } else {
     return next();

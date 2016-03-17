@@ -63,6 +63,6 @@
     {"text": "инфо", "desc": "текст", "file": "about_lab.html", "active": true},
     {"text": "аттестаты", "desc": "текст", "file": "about_lab.html"},
     {"text": "контакты", "desc": "тел 8-916-343-33-35", "file": "contacts.html"},
-    {"text": "услуги", "desc": "текст", "file": "about_lab.html"}
+    {"text": "услуги", "desc": "текст", "file": "about_lab.html"} 
   ]
 }

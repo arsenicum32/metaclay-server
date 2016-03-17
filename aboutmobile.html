@@ -5,7 +5,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <title>metaclay about</title>
     <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/aboutmobile.css">
+    <script type='text/javascript' src='js/lib/jquery2.2.js'></script>
   </head>
   <body>
 
@@ -15,18 +15,12 @@
 <!--     <div class="demo-section">
     <p>лаборатория состоит из 4ёх отделов и всё такое прочее</p>
   </div> -->
-  <div class="tab-wrap">
-    <input type="radio" id="tab1" name="tabGroup1" class="tab" checked>
-    <label for="tab1">Short</label>
-    <input type="radio" id="tab2" name="tabGroup1" class="tab">
+  <div class="tab-wrap" id='placer'>
+    <!-- <input type="radio" id="tab2" name="tabGroup1" class="tab">
     <label for="tab2">Medium</label>
     <input type="radio" id="tab3" name="tabGroup1" class="tab">
-    <label for="tab3">Long</label>
-    <div class="tab__content">
-      <h3>Short Section</h3>
-      <p>Praesent nonummy mi in odio. Nullam accumsan lorem in dui. Vestibulum turpis sem, aliquet eget, lobortis pellentesque, rutrum eu, nisl. Nullam accumsan lorem in dui. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
-    </div>
-    <div class="tab__content">
+    <label for="tab3">Long</label> -->
+    <!-- <div class="tab__content">
       <h3>Medium Section</h3>
       <p>Praesent nonummy mi in odio. Nullam accumsan lorem in dui. Vestibulum turpis sem, aliquet eget, lobortis pellentesque, rutrum eu, nisl. Nullam accumsan lorem in dui. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
       <p>In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Morbi mattis ullamcorper velit. Pellentesque posuere. Etiam ut purus mattis mauris sodales aliquam. Praesent nec nisl a purus blandit viverra.</p>
@@ -35,19 +29,30 @@
     <div class="tab__content">
       <h3>Long Section</h3>
       <p>Praesent nonummy mi in odio. Nullam accumsan lorem in dui. Vestibulum turpis sem, aliquet eget, lobortis pellentesque, rutrum eu, nisl. Nullam accumsan lorem in dui. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
-
       <p>In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Morbi mattis ullamcorper velit. Pellentesque posuere. Etiam ut purus mattis mauris sodales aliquam. Praesent nec nisl a purus blandit viverra.</p>
-
       <p>Praesent nonummy mi in odio. Nullam accumsan lorem in dui. Vestibulum turpis sem, aliquet eget, lobortis pellentesque, rutrum eu, nisl. Nullam accumsan lorem in dui. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
-
       <p>In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Morbi mattis ullamcorper velit. Pellentesque posuere. Etiam ut purus mattis mauris sodales aliquam. Praesent nec nisl a purus blandit viverra.</p>
-    </div>
+    </div> -->
   </div>
 </div>
+  <script>
+    function addStyle(){
+      $('head').append('<link rel="stylesheet" href="css/aboutmobile.css">')
+    }
 
-
-
-
-
+    $.get('/data', function(data){
+      var ab = data.about;
+      for (var i in ab){
+        $('#placer').append('<input type="radio" id="tab'+(parseInt(i)+1)+'" name="tabGroup1" class="tab" checked>\
+        <label for="tab'+(parseInt(i)+1)+'">'+ab[i].text+'</label>');
+      }
+      for(var i in ab){
+        $.get('/g/'+(ab[i].mfile || ab[i].file), function(dat){ // козырный момент!!! здесь проверяем, есть ли мобильная вёрстка
+          $('#placer').append('<div class="tab__content">'+dat+'</div>');
+          if(i==ab.length - 1) addStyle();
+        })
+      }
+    });
+  </script>
   </body>
 </html>

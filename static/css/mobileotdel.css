@@ -1,6 +1,11 @@
 ::-webkit-scrollbar {
     display: none;
 }
+ html{
+    overflow-x: hidden;
+    width: 100%;
+}
+
 body {
   margin: 0;
   display: -webkit-box;
@@ -14,6 +19,7 @@ body {
 .section {
   width: 100vw;
   overflow-y: scroll;
+  overflow-x: hidden;
   -webkit-flex-shrink: 0;
       -ms-flex-negative: 0;
           flex-shrink: 0;

@@ -9,66 +9,34 @@ function navigator() {
     return col[rand].split(' ')[1];
   };
 
-  n = 0;
+  var n = 0, me, tout;
 
-  $('.section').on({
-    "click": function(e) {
-      var lf;
-      console.log(e);
-      lf = e.screenX > $(window).width() / 2;
-      if (lf && n < $('.section').length) {
-        n += 1;
-      }
-      if (!lf && n) {
-        n -= 1;
-      }
-      $('body').animate({
-        scrollLeft: $('body').width() * n
-      }, 750);
-    },
-    'wheel': function(){
-      if($(this).attr('yet')){
-      }else{
-        $(this).attr('yet', "1");
-        var me  = $(this);
-        $.get('/g/shtat.html', function(data){
-          me.find('.bod').html(data);
+  function change(){
+    $('.anm').css('opacity', '0');
+    tout = setTimeout(function(){
+      console.log(n);
+      $('#otdim').attr('src', '../' + items[n].img );
+      if(items[n].file){
+        $.get('/g/'+ items[n].file , function(data){
+          $('#section').find('.bod').html(data);
         })
+      }else{
+          $('#section').find('.bod').html('');
       }
+      $('.anm').css('opacity', '1');
+      $('.anm').animateCss('zoomInRight');
+    },100)
+  }
+
+
+  $('#section').on({
+    "mouseup": function() {
+      n<items.length - 1?n++:n=0;
+      $('.anm').animateCss('zoomOutLeft', change );
     }
   });
 
   $('.section').each(function() {
     $(this).css('background', rancol);
-  });
-
-  $('.query').on('click', function() {
-    var mypre;
-    mypre = $(this).attr('Aid');
-    $.get($(this).text(), function(data) {
-      $('pre').each(function() {
-        if ($(this).attr('preid') === mypre) {
-          $(this).html(JSON.stringify(data, null, '\t'));
-        }
-      });
-    });
-  });
-
-  $('.simple').on('click', function() {
-    var mypre, sup;
-    mypre = $(this).attr('Aid');
-    sup = '';
-    $('.query').each(function() {
-      if ($(this).attr('Aid') === mypre) {
-        sup = $(this).text();
-      }
-    });
-    return $.get(sup, function(data) {
-      return $('.section').each(function() {
-        if ($(this).attr('preid') === mypre) {
-          $(this).html(JSON.stringify(data, null, '\t'));
-        }
-      });
-    });
   });
 }

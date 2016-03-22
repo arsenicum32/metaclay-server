@@ -148,14 +148,22 @@
     // paths[i].attr('transform','translate('+pathanim[i].x+','+pathanim[i].y+')');
 
     paths[i].on('mouseover', function(){
-      d3.select(this).attr('transform','translate('+ (Math.random()*40 - 20) +','+ (Math.random()*40 - 20) +')');
+      var el  = d3.select(this);
+      d3.select(this).transition().attr('transform','translate('+ (Math.random()*80 - 40) +','+ (Math.random()*80 - 40) +')')
+      .duration(500).each('end', function(){
+        el
+        .transition()
+        .attr('transform','translate(0,0)')
+        .duration(500);
+      });
+
     });
-    paths[i].on('mouseout', function(){
-      d3.select(this)
-      .transition()
-      .attr('transform','translate(0,0)')
-      .duration(500);
-    });
+    // paths[i].on('mouseout', function(){
+    //   d3.select(this)
+    //   .transition()
+    //   .attr('transform','translate(0,0)')
+    //   .duration(500);
+    // });
   };
   // var animation = setInterval(function(){
   //   timer++;

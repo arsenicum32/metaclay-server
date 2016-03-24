@@ -12,6 +12,7 @@
   logog.append('circle').attr({ // для того, что бы клик был уверенный
     cx: 45,
     cy: 45,
+    class: 'supercircle',
     r: 90,
     fill: 'red',
     opacity: '0'
@@ -143,28 +144,47 @@
   var pathanim = [];
   var timer = 0;
 
-  for(var i in paths){
-    // pathanim[pathanim.length] = {x: rand(x), y: rand(y), path: paths[i]};
-    // paths[i].attr('transform','translate('+pathanim[i].x+','+pathanim[i].y+')');
 
-    paths[i].on('mouseover', function(){
-      var el  = d3.select(this);
-      d3.select(this).transition().attr('transform','translate('+ (Math.random()*80 - 40) +','+ (Math.random()*80 - 40) +')')
+
+$('.supercircle').on({
+  'mouseenter': function(){
+    if(true){
+      for(var i in paths){
+        var el = paths[i];
+        el.transition().attr('transform','translate('+ (Math.random()*80 - 40) +','+ (Math.random()*80 - 40) +')')
+        .duration(500).each('end', function(){
+          el
+          .transition()
+          .attr('transform','translate(0,0)')
+          .duration(500); //.each('end', function(){ compl = true; });
+          compl = true;
+        });
+      }
+    }
+  },
+  'mouseleave': function(){
+    for(var i in paths){
+      var el = paths[i];
+      el.transition().attr('transform','translate(0,0)')
       .duration(500).each('end', function(){
-        el
-        .transition()
-        .attr('transform','translate(0,0)')
-        .duration(500);
       });
-
-    });
-    // paths[i].on('mouseout', function(){
-    //   d3.select(this)
-    //   .transition()
-    //   .attr('transform','translate(0,0)')
-    //   .duration(500);
-    // });
-  };
+    }
+  }
+})
+  // for(var i in paths){
+  //   // pathanim[pathanim.length] = {x: rand(x), y: rand(y), path: paths[i]};
+  //   // paths[i].attr('transform','translate('+pathanim[i].x+','+pathanim[i].y+')');
+  //   //paths[i].on('mouseover', function(){
+  //     var el  = //d3.select(this);
+  //     d3.select(this).transition().attr('transform','translate('+ (Math.random()*80 - 40) +','+ (Math.random()*80 - 40) +')')
+  //     .duration(500).each('end', function(){
+  //       el
+  //       .transition()
+  //       .attr('transform','translate(0,0)')
+  //       .duration(500);
+  //     });
+  //   //});
+  // };
   // var animation = setInterval(function(){
   //   timer++;
   //   for( var i in pathanim){

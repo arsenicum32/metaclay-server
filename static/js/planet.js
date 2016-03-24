@@ -36,6 +36,7 @@
     var timer = [];
     var intervalRotation;
     var planet = [];
+    var gifs = [];
 
     for(var i in pla){
       timer.push((pla[i].start || 0));
@@ -48,7 +49,34 @@
         "class": "planet texts",
         "r": pla[i].r || 30
       }));
+
+      gifs.push(d3.select('body').append('img').attr({
+        'class': 'otdel-img otdel-items nocopy texts',
+        'src': pla[i].img || "/images/image.png",
+        "name": pla[i].name || "planet"+i,
+        "texts": pla[i].desc || "небольшое"
+      }));
     }
+
+    for(var i in gifs){
+      gifs[i].setpos = function(xxx,yyy){
+        this.style({
+          'left': xxx - this.style('width').slice(0, -2)/2 + "px",
+          'top': yyy - this.style('width').slice(0, -2)/2 + "px"
+        });
+      }
+      gifs[i].setscale = function(s){
+        this.style({
+          'width': (pla[i].r || 30)*s*1.9 + "px",
+          "height": (pla[i].r || 30)*s*1.9 + "px"
+        });
+      }
+
+      gifs[i].setpos(x/2, y/2 + orb.r);
+      gifs[i].setscale( 1 );
+    }
+
+    var ohr = 1; // эта штука двигает картинки ставит их на орбиту когда масштаб становится в 2 раза больше
 
     function setRotation(set){
       intervalRotation = setInterval(function(){
@@ -58,6 +86,8 @@
             "cx": x/2 + Math.cos(timer[n]*(pla[n].speed||1))*orb.r,
             "cy": y/2 + Math.sin(timer[n]*(pla[n].speed||1))*orb.r
           });
+          gifs[n].setpos(x/2 + Math.cos(timer[n]*(pla[n].speed||1))*orb.r*ohr,
+          y/2 + Math.sin(timer[n]*(pla[n].speed||1))*orb.r*ohr);
         }
       }, 10);
     }
@@ -70,25 +100,36 @@
     // Я: окееей
     resf.push(function(){
       if(!clickcount){
-        if(x>y*1.2)
-        navpanel.attr('transform', 'scale(2,2) translate(-'+x/4+',-'+y/4+')');
-        else
-        navpanel.attr('transform', 'scale(1,1)');
+        if(x>y*1.2){
+          navpanel.attr('transform', 'scale(2,2) translate(-'+x/4+',-'+y/4+')');
+          for(var i in gifs){
+            gifs[i].setscale(2);
+            ohr = 2;
+          }
+        }
+        else{
+          navpanel.attr('transform', 'scale(1,1)');
+          for(var i in gifs){
+            gifs[i].setscale(1);
+            ohr = 1;
+          }
+        }
       }
     });
 
-    for(var i in planet){
-      planet[i].on('mouseover', function(){
+    for(var i in gifs){
+      gifs[i].on('mouseover', function(){
         var current = pla[i].r || 30;
         clearInterval(intervalRotation);
         $(this).attr({
           "r": current*2.4
         });
+        $(this).css('transform', 'scale(1.2)');
         tooltip.text( $(this).attr('name') );      ////////////////////// переменная name отвечает за название раздела
         return tooltip.style("visibility", "visible");
       });
 
-      planet[i].on('click', function(){
+      gifs[i].on('click', function(){
         clickcount++;
         var obj = $(this);
         if(clickcount===1){
@@ -120,16 +161,16 @@
         rletter(currentSel, 20);
         //drawPath.draw([[$(this).attr('cx'),$(this).attr('cy')],[200,200],[300,300]]); /////////////////////////////////////////
       });
-      planet[i].on('mousemove', function(){
+      gifs[i].on('mousemove', function(){
         return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
       });
-      planet[i].on('mouseout', function(){
+      gifs[i].on('mouseout', function(){
         var current = pla[i].r || 30;
         setRotation();
         $(this).attr({
           "r": current
         });
-
+        $(this).css('transform', 'scale(1)');
         return tooltip.style("visibility", "hidden");
       });
     }
@@ -139,8 +180,8 @@
   var pi = 3.14;
   $.get('/data', function(data){
     var menu = data.navigation;
-    for(var n in menu){
-      menu[n].r = 16; menu[n].speed = 0.25; menu[n].start = 2*pi*n;
+    for(var n in menu){ // добавляем стартовую позицию элементам
+      menu[n].r = 18; menu[n].speed = 0.25; menu[n].start = 2*pi*n;
     }
     addPlanet({r: 100 , draw: true} ,  menu );
     textspeak.rebind();

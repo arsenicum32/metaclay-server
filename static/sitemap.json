@@ -68,6 +68,6 @@
       "text": "инфо", "desc": "общая информация", "file": "about_lab.html", "active": true},
     {"text": "аттестаты", "desc": "аттестаты и лицензии", "file": "att.html"},
     {"text": "расположение", "desc": "тел +7-499-969-81-30", "file": "contacts.html"},
-    {"text": "услуги", "desc": "текст", "file": "prixe.html"}
+    {"text": "услуги", "desc": "текст", "file": "price.html"}
   ]
 }

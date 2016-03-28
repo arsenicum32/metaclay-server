@@ -3,7 +3,7 @@
     return a/2 + Math.floor(Math.random() * -1) * Math.floor( Math.random() * a);
   }
 
-  window.logog = navpanel.append('g');
+  window.logog = navpanel.append('g'); // в logog.coo будут записанны координаты точек смещенного лого
 
   logog.on('click', function(){
     effects.go('/about');
@@ -144,25 +144,28 @@
   var pathanim = [];
   var timer = 0;
 
-
+  logog.coo = [];
 
 $('.supercircle').on({
   'mouseenter': function(){
-    if(true){
       for(var i in paths){
         var el = paths[i];
-        el.transition().attr('transform','translate('+ (Math.random()*80 - 40) +','+ (Math.random()*80 - 40) +')')
+        var elx = (Math.random()*80 - 40);
+        var ely = (Math.random()*80 - 40);
+        //logog.coo[i] = [ elx*2 ,  ely*2 ];
+        el.transition().attr('transform','translate('+ elx +','+ ely +')')
         .duration(500).each('end', function(){
+          //var xy = (el.attr('d').split('c')[0]).substring(2).split(',');
           el
           .transition()
           .attr('transform','translate(0,0)')
           .duration(500); //.each('end', function(){ compl = true; });
-          compl = true;
         });
       }
-    }
+    if(logog.fstart) logog.fstart();
   },
   'mouseleave': function(){
+    if(logog.fend) logog.fend();
     for(var i in paths){
       var el = paths[i];
       el.transition().attr('transform','translate(0,0)')
@@ -171,32 +174,35 @@ $('.supercircle').on({
     }
   }
 })
-  // for(var i in paths){
-  //   // pathanim[pathanim.length] = {x: rand(x), y: rand(y), path: paths[i]};
-  //   // paths[i].attr('transform','translate('+pathanim[i].x+','+pathanim[i].y+')');
-  //   //paths[i].on('mouseover', function(){
-  //     var el  = //d3.select(this);
-  //     d3.select(this).transition().attr('transform','translate('+ (Math.random()*80 - 40) +','+ (Math.random()*80 - 40) +')')
-  //     .duration(500).each('end', function(){
-  //       el
-  //       .transition()
-  //       .attr('transform','translate(0,0)')
-  //       .duration(500);
-  //     });
-  //   //});
-  // };
-  // var animation = setInterval(function(){
-  //   timer++;
-  //   for( var i in pathanim){
-  //     pathanim[i].x>0?pathanim[i].x -= timer:pathanim[i].x += timer;
-  //     pathanim[i].y>0?pathanim[i].y -= timer:pathanim[i].y += timer;
-  //     pathanim[i].path.attr('transform','translate('+pathanim[i].x+','+pathanim[i].y+')');
-  //   }
-  //   if(timer>25){
-  //     clearInterval(animation);
-  //     for( var i in paths){
-  //       paths[i].attr('transform','translate(0,0)');
-  //     }
-  //   }
-  // }, 12);
+
 })();
+
+
+// for(var i in paths){
+//   // pathanim[pathanim.length] = {x: rand(x), y: rand(y), path: paths[i]};
+//   // paths[i].attr('transform','translate('+pathanim[i].x+','+pathanim[i].y+')');
+//   //paths[i].on('mouseover', function(){
+//     var el  = //d3.select(this);
+//     d3.select(this).transition().attr('transform','translate('+ (Math.random()*80 - 40) +','+ (Math.random()*80 - 40) +')')
+//     .duration(500).each('end', function(){
+//       el
+//       .transition()
+//       .attr('transform','translate(0,0)')
+//       .duration(500);
+//     });
+//   //});
+// };
+// var animation = setInterval(function(){
+//   timer++;
+//   for( var i in pathanim){
+//     pathanim[i].x>0?pathanim[i].x -= timer:pathanim[i].x += timer;
+//     pathanim[i].y>0?pathanim[i].y -= timer:pathanim[i].y += timer;
+//     pathanim[i].path.attr('transform','translate('+pathanim[i].x+','+pathanim[i].y+')');
+//   }
+//   if(timer>25){
+//     clearInterval(animation);
+//     for( var i in paths){
+//       paths[i].attr('transform','translate(0,0)');
+//     }
+//   }
+// }, 12);

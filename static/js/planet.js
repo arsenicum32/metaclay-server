@@ -72,6 +72,8 @@
         });
       }
 
+      gifs[i].planet = planet[i];
+
       gifs[i].setpos(x/2, y/2 + orb.r);
       gifs[i].setscale( 1 );
     }
@@ -121,10 +123,11 @@
       gifs[i].on('mouseover', function(){
         var current = pla[i].r || 30;
         clearInterval(intervalRotation);
-        $(this).attr({
-          "r": current*2.4
-        });
-        $(this).css('transform', 'scale(1.2)');
+        for(var n in planet){
+          $(this).attr('name')===planet[n].attr('name')?planet[n].attr('r', current*3):void(0); /// 3 - масштаб увеличивающегося кружка
+        }
+        console.log(gifs[i]);
+        $(this).css('transform', 'scale(2.8)');
         tooltip.text( $(this).attr('name') );      ////////////////////// переменная name отвечает за название раздела
         return tooltip.style("visibility", "visible");
       });
@@ -167,9 +170,9 @@
       gifs[i].on('mouseout', function(){
         var current = pla[i].r || 30;
         setRotation();
-        $(this).attr({
-          "r": current
-        });
+        for(var n in planet){
+          $(this).attr('name')===planet[n].attr('name')?planet[n].attr('r', current):void(0);
+        }
         $(this).css('transform', 'scale(1)');
         return tooltip.style("visibility", "hidden");
       });

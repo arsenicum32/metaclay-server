@@ -148,6 +148,7 @@
 
 $('.supercircle').on({
   'mouseenter': function(){
+    //aboutmenu.style('visibility','visible');
       for(var i in paths){
         var el = paths[i];
         var elx = (Math.random()*80 - 40);
@@ -165,6 +166,7 @@ $('.supercircle').on({
     if(logog.fstart) logog.fstart();
   },
   'mouseleave': function(){
+    //aboutmenu.style('visibility','hidden');
     if(logog.fend) logog.fend();
     for(var i in paths){
       var el = paths[i];

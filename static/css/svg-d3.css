@@ -5,9 +5,9 @@
 }
 
 .planet{
-  stroke: #333;
+  stroke: #ccc;
   stroke-width: 3;
-  fill: #ccc;
+  fill: #eee;
 }
 .orbit{
    stroke : #eee;

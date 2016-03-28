@@ -42,6 +42,16 @@ body{
   font-weight: lighter;
   line-height: 1em;
 }
+.aboutmenu{
+  position: absolute;
+  width: 80vw;
+  height: 80vh;
+  background: red;
+  top: 10vh;
+  left: 10vw;
+  z-index: 12;
+  visibility:hidden;
+}
 .st1{fill:#F7C059;}
 .st2{fill:#FFFFFF;}
 .st3{fill:#4A96CD;}

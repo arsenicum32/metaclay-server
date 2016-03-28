@@ -7,6 +7,10 @@
     .append("div").attr('class', 'fullinfopanel frame')
     .html('error');
 
+  window.aboutmenu = d3.select("body")
+    .append("div").attr('class', 'aboutmenu')
+    .html('error');
+
   var hamburger = svg.append('g');
 
   var crs = hamburger.append('circle').attr({

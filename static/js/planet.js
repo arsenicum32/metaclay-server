@@ -52,10 +52,13 @@
 
       gifs.push(d3.select('body').append('img').attr({
         'class': 'otdel-img otdel-items nocopy texts',
-        'src': pla[i].img || "/images/image.png",
+        'src': pla[i].img?pla[i].img.split('.')[0]+'s.jpg':void(0) || "/images/image.png",
+        'srcd': pla[i].img || "/images/image.png",
         "name": pla[i].name || "planet"+i,
         "texts": pla[i].desc || "небольшое"
       }));
+
+
     }
 
     for(var i in gifs){
@@ -127,6 +130,8 @@
           $(this).attr('name')===planet[n].attr('name')?planet[n].attr('r', current*3):void(0); /// 3 - масштаб увеличивающегося кружка
         }
         console.log(gifs[i]);
+        var imgs = $(this).attr('srcd');
+        $(this).attr('src', imgs.split('.')[0]+'d.gif' );
         $(this).css('transform', 'scale(2.8)');
         tooltip.text( $(this).attr('name') );      ////////////////////// переменная name отвечает за название раздела
         return tooltip.style("visibility", "visible");
@@ -173,6 +178,8 @@
         for(var n in planet){
           $(this).attr('name')===planet[n].attr('name')?planet[n].attr('r', current):void(0);
         }
+        var imgs = $(this).attr('srcd');
+        $(this).attr('src', imgs.split('.')[0]+'s.jpg' );
         $(this).css('transform', 'scale(1)');
         return tooltip.style("visibility", "hidden");
       });

@@ -7,9 +7,21 @@
     .append("div").attr('class', 'fullinfopanel frame')
     .html('error');
 
-  window.aboutmenu = d3.select("body")
+  window.aboutmenu = [
+    d3.select("body")
     .append("div").attr('class', 'aboutmenu')
-    .html('error');
+    .html('error'),
+    d3.select("body")
+    .append("div").attr('class', 'aboutmenu')
+    .html('error')
+  ];
+
+  $.get('/g/abouttop.html', function(data){
+    aboutmenu[0].html(data);
+  })
+  $.get('/g/aboutbottom.html', function(data){
+    aboutmenu[1].html(data);
+  })
 
   var hamburger = svg.append('g');
 

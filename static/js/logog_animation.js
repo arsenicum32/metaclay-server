@@ -148,7 +148,9 @@
 
 $('.supercircle').on({
   'mouseenter': function(){
-    //aboutmenu.style('visibility','visible');
+    for(var i in aboutmenu){
+      aboutmenu[i].style('visibility','visible');
+    };
       for(var i in paths){
         var el = paths[i];
         var elx = (Math.random()*80 - 40);
@@ -166,7 +168,7 @@ $('.supercircle').on({
     if(logog.fstart) logog.fstart();
   },
   'mouseleave': function(){
-    //aboutmenu.style('visibility','hidden');
+    for(var i in aboutmenu){ aboutmenu[i].style('visibility','hidden'); }
     if(logog.fend) logog.fend();
     for(var i in paths){
       var el = paths[i];
@@ -174,6 +176,18 @@ $('.supercircle').on({
       .duration(500).each('end', function(){
       });
     }
+  },
+  'mousemove': function(e){
+    var py = e.pageY;
+    var px = e.pageX;
+    aboutmenu[0].style({
+      'left': (px-x*0.4)+"px",
+      'top': (py-y*0.4 - 10)+"px"
+    });
+    aboutmenu[1].style({
+      'left': (px-x*0.4)+"px",
+      'top': (py + 10)+"px"
+    });
   }
 })
 

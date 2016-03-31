@@ -1,0 +1,86 @@
+<style>
+.mesblock {
+  margin: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+.message p {
+  background: #eee;
+  width: 100px;
+  margin: 0;
+  text-align: center;
+  font-size: 0.75em;
+  line-height: 1.15em;
+}
+.message {
+  margin: 10px;
+}
+.tr-r {
+  width: 0;
+  height: 0;
+  border-top: 12px solid #eee;
+  border-right: 12px solid transparent;
+}
+.tr-r-t {
+  width: 0;
+  height: 0;
+  border-bottom: 12px solid #eee;
+  border-right: 12px solid transparent;
+}
+.tr-l-t {
+  width: 0;
+  height: 0;
+  border-bottom: 12px solid #eee;
+  border-left: 12px solid transparent;
+}
+.tr-l {
+  width: 0;
+  height: 0;
+  border-top: 12px solid #eee;
+  border-left: 12px solid transparent;
+}
+.item {
+  max-width: 50%;
+}
+.item-top {
+  -webkit-align-self: flex-start;
+      -ms-flex-item-align: start;
+          align-self: flex-start;
+}
+.item-bottom {
+  -webkit-align-self: flex-end;
+      -ms-flex-item-align: end;
+          align-self: flex-end;
+}
+</style>
+<div class="mesblock">
+  <div class="message item-bottom">
+    <div class="tr-l-t"></div>
+    <p>Лаборатория имеет аттестаты аккредитации как независимого испытательного центра по ИСО 17025 и Системы Менеджмента Качества ИСО 9001.</p>
+  </div>
+  <div class="message">
+    <div class="tr-r-t"></div>
+    <p>НТЛ состоит из четырёх подразделений.
+    </p>
+  </div>
+  <div class="message item-bottom">
+    <div class="tr-l-t"></div>
+    <p>Лаборатория занимается:
+      поисками новых материалов,
+      исследованиями свойств существующих образцов,
+      изготовлениями пробных партий композитов на основе термопластов,
+      выпуску опытных партий материалов для испытаний у заказчика.</p>
+  </div>
+</div>

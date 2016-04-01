@@ -4,22 +4,22 @@
       "desc": "Отдел Масшабирования Технологических Процессов"
     },{
       "name": "ОТАО",
-      "desc": "Отдел Тонкого Аналитического Оборудования"
+      "desc": "Отдел Тонкого Аналитического Оборудования",
+      "img": "/images/mich.gif"
     },{
       "name": "ОФМИ",
       "desc": "Отдел Физико-Механических Испытаний",
       "img": "/images/ofmi.gif"
     },{
       "name": "ОИТ",
-      "desc": "Отдел Иновационных Технологий",
-      "img": "/images/mich.gif"
+      "desc": "Отдел Иновационных Технологий"
     }],
   "otdel": {
     "ОИТ":[
-      [-1,-1, {"img" : "../images/oit/oit_2.png"}],
+      [-1,-1, {"img" : "../images/oit/oit_1.png"}],
       [-1,0, {"img" : "../images/oit/oit_2.png"}],
       [0,-1, {}],
-      [0,0, {"html": {"attr":{}, "body": "<p class='pdetb' >об отделе</p><p class='pdet' >Руководитель ЕЩЁ</p>"}}],
+      [0,0, {"html": {"attr":{}, "body": "<p class='pdetb' >об отделе</p><p class='pdet' >Руководитель Бахов Федор Николаевич</p>"}, "file": "contact_oit.html"}],
       [0,1, {}],
       [1,0, {"img" : "../images/oit/oit_3.png" , "file": "desc.html"}],
       [-1,1, {"img" : "../images/oit/oit_4.png"}],
@@ -30,7 +30,7 @@
       [-1,-1, {"img" : "../images/ofmi/ofmi_1.png"}],
       [-1,0, {"img" : "../images/ofmi/ofmi_2.png"}],
       [0,-1, {"html": { "attr":{}, "body": "<p class='pdet' >Испытания и Исследования, проводимые в Отделе</p>"}}],
-      [0,0, {"html": {"attr":{}, "body": "<p class='pdetb' >об отделе</p><p class='pdet' >Руководитель ЧТОТО</p>"}}],
+      [0,0, {"html": {"attr":{}, "body": "<p class='pdetb' >об отделе</p><p class='pdet' >Руководитель Злобин Владимир Борисович</p>"}, "file": "contact_ofmi.html"}],
       [0,1, {"html": { "attr":{}, "body": "<p class='pdet' >вспомогательное оборудование</p>"}}],
       [1,0, {"img" : "../images/ofmi/ofmi_3.png" , "file": "desc.html"}],
       [-1,1, {"img" : "../images/ofmi/ofmi_4.png"}],
@@ -41,7 +41,7 @@
       [-1,-1, {"img" : "../images/ОМТП/ОМТП_1.png"}],
       [-1,0, {"img" : "../images/ОМТП/ОМТП_2.png"}],
       [0,-1, {"html": {"attr":{}, "body": "<p class='pdet' >Испытания и Исследования, проводимые в Отделе</p>"}}],
-      [0,0, {"html": {"attr":{}, "body": "<p class='pdetb' >об отделе</p><p class='pdet' >Руководитель ОМПТ</p>"}}],
+      [0,0, {"html": {"attr":{}, "body": "<p class='pdetb' >об отделе</p><p class='pdet' >Руководитель Соколова Юлия Андреевна</p>"}, "file": "contact_omtp.html"}],
       [0,1, {"html": {"attr":{}, "body": "<p class='pdet' >вспомогательное оборудование</p>"}}],
       [1,0, {"img" : "../images/ОМТП/ОМТП_3.png" , "file": "desc.html"}],
       [-1,1, {"img" : "../images/ОМТП/ОМТП_4.png"}],
@@ -52,7 +52,7 @@
       [-1,-1, {"img" : "../images/OTAO/ОТАО_1.png"}],
       [-1,0, {"img" : "../images/OTAO/ОТАО_2.png"}],
       [0,-1, {"html": {"attr":{}, "body": "<p class='pdet' >Испытания и Исследования, проводимые в Отделе</p>"}}],
-      [0,0, {"html": {"attr":{}, "body": "<p class='pdetb' >об отделе</p><p class='pdet' >Руководитель ОТАО</p>"}}],
+      [0,0, {"html": {"attr":{}, "body": "<p class='pdetb' >об отделе</p><p class='pdet' >Руководитель Леонова Олеся Ивановна</p>"}, "file": "contact_otao.html"}],
       [0,1, {"html": {"attr":{}, "body": "<p class='pdet' >вспомогательное оборудование</p>"}}],
       [1,0, {"img" : "../images/OTAO/ОТАО_3.png" , "file": "desc.html"}],
       [-1,1, {"img" : "../images/OTAO/ОТАО_4.png"}],

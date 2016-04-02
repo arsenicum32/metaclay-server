@@ -41,17 +41,17 @@
     for(var i in pla){
       timer.push((pla[i].start || 0));
 
-      planet.push(nav.append('circle').attr({
-        "cx": x/2,
-        "cy": y/2 + orb.r,
-        "name": pla[i].name || "planet"+i,
-        "texts": pla[i].desc || "небольшое описание отдела, которое ненавязчиво рассказывает пользователю про то, что это не просто фан под номером "+i,
-        "class": "planet texts",
-        "r": pla[i].r || 30
-      }));
+      // planet.push(nav.append('circle').attr({
+      //   "cx": x/2,
+      //   "cy": y/2 + orb.r,
+      //   "name": pla[i].name || "planet"+i,
+      //   "texts": pla[i].desc || "небольшое описание отдела, которое ненавязчиво рассказывает пользователю про то, что это не просто фан под номером "+i,
+      //   "class": "planet texts",
+      //   "r": pla[i].r || 30
+      // }));
 
       gifs.push(d3.select('body').append('img').attr({
-        'class': 'otdel-img otdel-items nocopy texts',
+        'class': 'otdel-img otdel-items nocopy texts smooth',
         'src': pla[i].img?pla[i].img.split('.')[0]+'s.jpg':void(0) || "/images/image.png",
         'srcd': pla[i].img || "/images/image.png",
         "name": pla[i].name || "planet"+i,
@@ -75,7 +75,7 @@
         });
       }
 
-      gifs[i].planet = planet[i];
+      //gifs[i].planet = planet[i];
 
       gifs[i].setpos(x/2, y/2 + orb.r);
       gifs[i].setscale( 1 );
@@ -85,12 +85,12 @@
 
     function setRotation(set){
       intervalRotation = setInterval(function(){
-        for(var n in planet){
+        for(var n in gifs){
           timer[n]+=0.001;
-          planet[n].attr({
-            "cx": x/2 + Math.cos(timer[n]*(pla[n].speed||1))*orb.r,
-            "cy": y/2 + Math.sin(timer[n]*(pla[n].speed||1))*orb.r
-          });
+          // planet[n].attr({
+          //   "cx": x/2 + Math.cos(timer[n]*(pla[n].speed||1))*orb.r,
+          //   "cy": y/2 + Math.sin(timer[n]*(pla[n].speed||1))*orb.r
+          // });
           gifs[n].setpos(x/2 + Math.cos(timer[n]*(pla[n].speed||1))*orb.r*ohr,
           y/2 + Math.sin(timer[n]*(pla[n].speed||1))*orb.r*ohr);
         }
@@ -126,9 +126,9 @@
       gifs[i].on('mouseover', function(){
         var current = pla[i].r || 30;
         clearInterval(intervalRotation);
-        for(var n in planet){
-          $(this).attr('name')===planet[n].attr('name')?planet[n].attr('r', current*3):void(0); /// 3 - масштаб увеличивающегося кружка
-        }
+        // for(var n in planet){
+        //   $(this).attr('name')===planet[n].attr('name')?planet[n].transition().attr('r', current*3):planet[n].attr('r', current); /// 3 - масштаб увеличивающегося кружка
+        // }
         console.log(gifs[i]);
         var imgs = $(this).attr('srcd');
         $(this).attr('src', imgs.split('.')[0]+'d.gif' );
@@ -172,18 +172,25 @@
       gifs[i].on('mousemove', function(){
         return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
       });
-      gifs[i].on('mouseout', function(){
+      gifs[i].on('mouseleave', function(){
         var current = pla[i].r || 30;
         setRotation();
-        for(var n in planet){
-          $(this).attr('name')===planet[n].attr('name')?planet[n].attr('r', current):void(0);
-        }
+        // for(var n in planet){
+        //   planet[n].attr('r', current);
+        //   //$(this).attr('name')===planet[n].attr('name')?planet[n].attr('r', current):void(0);
+        // }
         var imgs = $(this).attr('srcd');
         $(this).attr('src', imgs.split('.')[0]+'s.jpg' );
         $(this).css('transform', 'scale(1)');
         return tooltip.style("visibility", "hidden");
       });
     }
+
+    // for(var n in planet){
+    //   planet[n].on('mouseout', function(){
+    //     d3.select(this).attr('r', current);
+    //   })
+    // }
   }
 
 

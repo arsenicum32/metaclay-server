@@ -22,7 +22,7 @@
     obj.attr("desc" , desc);
     obj.attr("file" , (file || 'desc.html'));
 
-    obj.attr('class', 'fullinfopanel')
+    obj.attr('class', 'fullinfopanel fullall')
       .style("visibility", "visible")  //.style('line-height', '2em')
       .style("top", "0px").style("left", leftpos+"px")
       .html('<div class="flexblock" ><h1 class="razdel">'+text+'</h1><p>'+desc+'</p></div>');

@@ -35,10 +35,15 @@ body{
   z-index:10;
   visibility:hidden;
   background: white;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
+  border: 1px solid #ccc;
   width: 50vw;
   min-width: 350px;
+}
+.fullhalf{
+  height: 50vh;
+  overflow: hidden;
+}
+.fullall{
   height: 100vh;
 }
 .nocopy {

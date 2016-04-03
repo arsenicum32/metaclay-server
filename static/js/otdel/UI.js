@@ -4,7 +4,7 @@
     .text("a simple tooltip");
 
   window.fullinfopanel = d3.select("body")
-    .append("div").attr('class', 'fullinfopanel frame')
+    .append("div").attr('class', 'fullinfopanel frame fullhalf')
     .html('error');
 
   var hamburger = svg.append('g');

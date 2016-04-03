@@ -111,7 +111,6 @@
       gifs[i].on('mouseover', function(){
         var current = pla[i].r || 30;
         clearInterval(intervalRotation);
-        console.log(gifs[i]);
         var imgs = $(this).attr('srcd');
         $(this).attr('src', imgs.split('.')[0]+'d.gif' );
         $(this).css('transform', 'scale(2.8)');
@@ -123,18 +122,26 @@
         clickcount++;
         var obj = $(this);
         if(clickcount===1){
-          var scale=1;
-          var inter = setInterval( function(){
-            if(scale>0.35) scale-=0.05;
-            else{
-              clearInterval(inter);
-              effects.go('/otdel/'+ obj.attr('name') );
-            }
-            navpanel.attr({
-              "transform": "scale( "+scale+" "+scale+") translate(0 0)"
-            });
-            stage.attr('visibility',"visible");
-          },10);
+          for(var k in gifs){
+            gifs[k].transition().style('opacity', '0');
+          }
+          orbit.transition().attr('opacity', 0);
+          logog.destroy(x, 2500, 1);
+          navpanel.transition().attr('transform', 'scale(0.35,0.35)').duration(2500).each('end', function(){
+            effects.go('/otdel/'+ obj.attr('name') );
+          })
+          // var scale=1;
+          // var inter = setInterval( function(){
+          //   if(scale>0.35) scale-=0.05;
+          //   else{
+          //     clearInterval(inter);
+          //     effects.go('/otdel/'+ obj.attr('name') );
+          //   }
+          //   navpanel.attr({
+          //     "transform": "scale( "+scale+" "+scale+") translate(0 0)"
+          //   });
+          //   stage.attr('visibility',"visible");
+          // },10);
         }else{
           var tmr = 0;
           var inter = setInterval( function(){
@@ -145,7 +152,7 @@
           },20);
         }
 
-        renderotdel( $(this).attr('name') );
+        //renderotdel( $(this).attr('name') );
         currentSel.text( $(this).attr('name') ); ////////////////////////   переменная name отвечает за название раздела
         rletter(currentSel, 20);
         //drawPath.draw([[$(this).attr('cx'),$(this).attr('cy')],[200,200],[300,300]]); /////////////////////////////////////////

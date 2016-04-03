@@ -1,0 +1,30 @@
+.block-obord {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+}
+.block-obord .obord {
+  margin: 5px;
+}
+.block-obord .obord img {
+  width: 250px;
+}
+.block-obord .obord .name {
+  font-weight: bold;
+}
+.block-obord .obord .desc {
+  font-weight: lighter;
+}
+.block-obord .obord p {
+  width: 250px;
+  line-height: 1em;
+  margin-top: 0.5em;
+}

@@ -31,7 +31,17 @@
         'width': x,
         'height': y
       }).style('opacity', 0).transition().style('opacity', 1).each('end', function(){
-        window.location.href = path;
+        d3.select(this).remove();
+        setTimeout(function(){
+          d3.selectAll('img').transition().style('opacity', '1');
+          d3.selectAll('div').transition().style('opacity', '1');
+          d3.selectAll('p').transition().style('opacity', '1');
+        }, 100);
+        if(path === 'back'){
+          window.history.back();
+        }else{
+          window.location.href = path;
+        }
       });
       d3.selectAll('img').transition().style('opacity', '0');
       d3.selectAll('div').transition().style('opacity', '0');

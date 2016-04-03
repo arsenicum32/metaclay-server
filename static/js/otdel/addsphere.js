@@ -171,8 +171,14 @@
       'mousemove': function(e){
         if($(this).attr('file')){
           fullinfopanel.style("visibility", "visible");
-          fullinfopanel.style("top", "0px").style("left",(e.pageX+ ( clickpos(e.pageX,e.pageY)[0]? -10-x/2: 10 ) )+"px");
+          fullinfopanel
+          .style("top",(e.pageY+ ( clickpos(e.pageX,e.pageY)[1]? -10-y/2: 10 ) )+"px")
+          .style("left",(e.pageX+ ( clickpos(e.pageX,e.pageY)[0]? -10-x/2: 10 ) )+"px");
         }
+      },
+      'click': function(){
+        if($(this).attr('file'))
+        effects.go('/full/'+$(this).attr('file'));
       },
       'mouseout': function(){
         fullinfopanel.style("visibility", "hidden");

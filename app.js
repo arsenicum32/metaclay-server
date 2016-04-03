@@ -45,18 +45,23 @@ app.get('/g/:file', function(req, res, next){
   fs.stat( __dirname + '/static/read/'+req.params.file , function(err, stat){
     if(err) {
       res.send( err );
-    }
-    if(stat){
-      fs.readFile( __dirname + '/static/read/'+req.params.file , function(err, data){
-        if (err){
-          res.send(err);
-        }
-        res.send( data.toString('utf8') );
-      });
     }else{
-      res.send('no file on server');
+      if(stat){
+        fs.readFile( __dirname + '/static/read/'+req.params.file , function(err, data){
+          if (err){
+            res.send(err);
+          }
+          res.send( data.toString('utf8') );
+        });
+      }else{
+        res.send('no file on server');
+      }
     }
   });
+});
+
+app.get('/full/:file', function(req, res, next){
+  res.sendFile(__dirname + '/fullpage.html');
 });
 
 app.get('/d/:file', function(req, res, next){
@@ -83,7 +88,7 @@ app.get('/nodoor', function(req, res, next){
 });
 
 app.get('/', function(req, res, next){
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/door.html');
 });
 
 http.listen(4800, function(){

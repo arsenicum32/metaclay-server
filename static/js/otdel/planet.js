@@ -6,9 +6,12 @@
       var orbit = nav.append('circle').attr({
         "cx": x/2,
         "cy": y/2,
+        'opacity': 0,
         "class": "orbit",
         "r": orb.r
       });
+
+      orbit.transition().attr('opacity',1).duration(1500);
 
       resf.push(function(){
         orbit.attr({
@@ -43,11 +46,16 @@
       planet.push(nav.append('circle').attr({
         "cx": x/2,
         "cy": y/2 + orb.r,
+        'opacity': 0,
         "name": pla[i].name || "planet"+i,
         "texts": pla[i].desc || "небольшое описание отдела, которое ненавязчиво рассказывает пользователю про то, что это не просто фан под номером "+i,
         "class": "planet texts",
         "r": pla[i].r || 30
       }));
+    }
+
+    for(var k in planet){
+      planet[k].transition().attr('opacity',1).duration(500);
     }
 
     function setRotation(set){
@@ -80,6 +88,7 @@
       });
 
       planet[i].on('click', function(){
+          clearInterval(intervalRotation);
           var tmr = 0;
           var obj = $(this);
           var inter = setInterval( function(){
@@ -87,7 +96,15 @@
               tmr+=0.005;
             }else{
               clearInterval(inter);
-              if(effects.lurl() !=  obj.attr('name') ) effects.go('/otdel/'+obj.attr('name'));
+              if(effects.lurl() !=  obj.attr('name') ){
+                logog.destroy(x*2, 1500, 1);
+                for(var k in planet){
+                  planet[k].transition().attr('opacity', 0).duration(1500);
+                }
+                orbit.transition().attr('opacity', 0).duration(1500).each('end', function(){
+                  effects.go('/otdel/'+obj.attr('name'));
+                });
+              }
             }
             for(var n in timer){
               timer[n]+=tmr;

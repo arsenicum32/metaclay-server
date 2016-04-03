@@ -1,6 +1,9 @@
 ::-webkit-scrollbar {
     display: none;
 }
+html{
+  overflow: -moz-scrollbars-none;
+}
 body{
   margin:0;
   overflow: hidden;
@@ -15,6 +18,17 @@ body{
   padding: 12px;
   border: 1px solid #ccc;
   border-left: 5px solid #F7C059;
+}
+.label{
+  position:absolute;
+  z-index:10;
+  font-size: 0.8em;
+  color: #aaa;
+}
+.label:after{
+  content: '_';
+  -webkit-animation: bnk 0.7s infinite alternate;
+         animation: bnk 0.7s infinite alternate;
 }
 .fullinfopanel{
   position:absolute;
@@ -53,3 +67,21 @@ body{
 .st2{fill:#FFFFFF;}
 .st3{fill:#4A96CD;}
 .st4{fill:#D20024;}
+
+
+@-webkit-keyframes bnk {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes bnk {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

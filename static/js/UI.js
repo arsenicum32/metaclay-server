@@ -7,6 +7,29 @@
     .append("div").attr('class', 'fullinfopanel frame')
     .html('error');
 
+////////////////////////////////// лэйбл лаборатории ///////////
+  window.label = d3.select("body")
+    .append("div").attr({
+      'class': 'label nocopy',
+    }).style({
+      'left': '20px',
+      'top': '20px'
+    })
+    .text("Metaclay");
+
+    label.intr = null;
+  resf.push(function(){
+    var t = 0,
+    stng = 'Научно-Технологическая Лаборатория «Метаклэй»';
+    if(label.intr) clearInterval(label.intr);
+    label.intr = setInterval(function(){
+      t<stng.length?t++:clearInterval(label.intr);
+      label.text(stng.substring(0, t));
+    },85);
+  });
+
+  //////////////////////////////////////////////////////////////
+
   window.aboutmenu = [
     d3.select("body")
     .append("div").attr('class', 'aboutmenu')

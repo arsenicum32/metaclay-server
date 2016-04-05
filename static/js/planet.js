@@ -12,6 +12,11 @@
       });
 
       resf.push(function(){
+        if(effects.lurl() === 'nodoor'){
+          orbit.transition().attr('opacity', 1).duration(500);
+        }else{      
+          orbit.transition().attr('opacity', 1).duration(5000);
+        }
         orbit.attr({
           "cx": x/2,
           "cy": y/2,
@@ -73,10 +78,8 @@
 
 
     if(effects.lurl() === 'nodoor'){
-      orbit.transition().attr('opacity', 1).duration(500);
       $('.otdel-img').addClass('circleanimfast');
     }else{
-      orbit.transition().attr('opacity', 1).duration(5000);
       $('.otdel-img').addClass('circleanim');
     }
 

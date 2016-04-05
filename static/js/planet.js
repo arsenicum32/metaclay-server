@@ -14,7 +14,7 @@
       resf.push(function(){
         if(effects.lurl() === 'nodoor'){
           orbit.transition().attr('opacity', 1).duration(500);
-        }else{      
+        }else{
           orbit.transition().attr('opacity', 1).duration(5000);
         }
         orbit.attr({
@@ -28,6 +28,7 @@
     var currentSel =  nav.append('text').attr({
       "x": x/2,
       "y": y/2 + orb.r + 80,
+      'opacity': 1,
       "font-size": 60,
       "text-anchor": "middle"
     }).text('');
@@ -167,8 +168,10 @@
         }
 
         //renderotdel( $(this).attr('name') );
+        currentSel.transition().attr('opacity',1);
         currentSel.text( $(this).attr('name') ); ////////////////////////   переменная name отвечает за название раздела
         rletter(currentSel, 20);
+        currentSel.transition().attr('opacity',0).duration(1800);
         //drawPath.draw([[$(this).attr('cx'),$(this).attr('cy')],[200,200],[300,300]]); /////////////////////////////////////////
       });
       gifs[i].on('mousemove', function(){

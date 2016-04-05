@@ -25,6 +25,7 @@
     var currentSel =  nav.append('text').attr({
       "x": x/2,
       "y": y/2 + orb.r + 80,
+      'opacity': 1,
       "font-size": 60,
       "text-anchor": "middle"
     }).text('');
@@ -110,8 +111,10 @@
               timer[n]+=tmr;
             }
           },20);
+          currentSel.transition().attr('opacity',1);
           currentSel.text( $(this).attr('name') ); ////////////////////////   переменная name отвечает за название раздела
           rletter(currentSel, 20);
+          currentSel.transition().attr('opacity',0).duration(1800);
         //drawPath.draw([[$(this).attr('cx'),$(this).attr('cy')],[200,200],[300,300]]); /////////////////////////////////////////
       });
       planet[i].on('mousemove', function(){

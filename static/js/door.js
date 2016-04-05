@@ -96,6 +96,7 @@
       'width': 180,
       'height': 180,
       'fill': '#f00',
+      'opacity': 1,
       'xlink:href':"/images/logog.png",
       'transform-origin': 'center',
       'x': (x/2 - 90),
@@ -119,11 +120,16 @@
       }else{
         logo.attr('transform','');
         clearInterval(inter);
+        logorun();
         nexstep();
       }
     },10);
 
-    lanim.push(logo);
+    function logorun(){
+      //logo.transition().duration(1200);
+      logo.transition().attr('opacity', 0).attr('transform', 'translate(-'+x/4+', -'+y/4+') scale(1.5)').duration(1200);
+    }
+    //lanim.push(logo);
 
     function nexstep(){
       for(var n in ranim){

@@ -3,7 +3,7 @@
     return a/2 + Math.floor(Math.random() * -1) * Math.floor( Math.random() * a);
   }
 
-  window.logog = navpanel.append('g'); // в logog.coo будут записанны координаты точек смещенного лого
+  window.logog = navpanel.append('g').attr('opacity', 0); // в logog.coo будут записанны координаты точек смещенного лого
 
   logog.on('click', function(){
     effects.go('/about');
@@ -19,6 +19,13 @@
   })
 
   resf.push(function(){
+    ////////////////// анимация появляния логотипа /////////
+    if(effects.lurl() === 'nodoor'){
+      logog.transition().attr('opacity', 1).duration(500);
+    }else{
+      logog.transition().attr('opacity', 1).duration(7500);
+    }
+    //////////////////////////////////////
     logog.attr('transform','translate('+(x/2  - 45)+','+(y/2 - 45)+')');
   })
 

@@ -159,6 +159,9 @@
       addAtom(range[n][0],range[n][1], range[n][2]);
     }
 
+    ////////// после перезагрузки страницы иногда происходит шлак
+    fullinfopanel.style("visibility", "hidden");
+
     $('.otdel-items').on({
       'mouseenter': function(e){
         if($(this).attr('file')){

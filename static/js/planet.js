@@ -6,6 +6,7 @@
       var orbit = nav.append('circle').attr({
         "cx": x/2,
         "cy": y/2,
+        'opacity': 0,
         "class": "orbit",
         "r": orb.r
       });
@@ -69,6 +70,16 @@
       gifs[i].setpos(x/2, y/2 + orb.r);
       gifs[i].setscale( 1 );
     }
+
+
+    if(effects.lurl() === 'nodoor'){
+      orbit.transition().attr('opacity', 1).duration(500);
+      $('.otdel-img').addClass('circleanimfast');
+    }else{
+      orbit.transition().attr('opacity', 1).duration(5000);
+      $('.otdel-img').addClass('circleanim');
+    }
+
 
     var ohr = 1; // эта штука двигает картинки ставит их на орбиту когда масштаб становится в 2 раза больше
 

@@ -1,0 +1,40 @@
+.parent-dop {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.card-dop {
+  border: 2px solid #ccc;
+  width: 100%;
+  height: 200px;
+  max-width: 500px;
+  max-height: 280px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 2% auto;
+}
+.card-dop .ob {
+  width: 40%;
+}
+.card-dop .desc {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 60%;
+  background: #eee;
+}
+.card-dop .desc *{
+  width: 80%;
+  margin: auto;
+}

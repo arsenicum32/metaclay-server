@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+  <head>
+    <title>metaclay</title>
+    <script type='text/javascript' src='js/lib/jquery2.2.js'></script>
+    <script type='text/javascript' src='http://underscorejs.ru/underscore-min.js'></script>
+  </head>
+  <body>
+    <div id='body'></div>
+    <button id='addtext'>добавить текст</button>
+    <script>
+    function bb(){
+      $('textarea').off( 'input');
+      $('textarea').on( 'input', _.debounce(
+        function(){
+          var updata = $(this).val();
+          var id = $(this).attr('id');
+          $.get('/admin/update/'+id+'?data='+updata, function(){
+            console.log("update");
+          });
+        } , 100 ));
+    }
+      $.get('/admin/json', function(data){
+        for(var n in data){
+          $('#body').append('<p>'+data[n]._id+'</p><textarea id="'+data[n]._id+'">'+data[n].data+'</textarea>');
+        }
+        bb();
+      });
+      $('#addtext').on('click', function(){
+        $.get('/admin/add?q=new', function(data){
+          console.log(data);
+          $('#body').append('<p>'+data._id+'</p><textarea id="'+data._id+'">'+data.data+'</textarea>');
+            bb();
+        });
+      });
+    </script>
+  </body>
+</html>

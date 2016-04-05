@@ -1,6 +1,9 @@
 var express = require('express');
+var mongoose = require('mongoose'); /// в продакшн удалить !!!
 var cors = require('cors');
 var fs = require('fs');
+
+mongoose.connect('mongodb://thebigbuy:fhctybqfylhtq@ds037185.mongolab.com:37185/thebigbuy'); // !!!
 
 var app = express();
 
@@ -9,6 +12,93 @@ var http = require('http').Server(app);
 app.use('/', express.static(__dirname + '/static'));
 app.use(cors());
 
+///// !!!
+var item = new mongoose.Schema({ data: 'string'});
+var items = mongoose.model('metaclay', item );
+
+app.get('/admin', function(req, res, next) {
+  res.sendFile(__dirname + '/admin.html');
+});
+
+app.get('/admin/json', function(req, res, next) {
+  items.find( {} , function (err, adventure) {
+    if(err){
+      res.json({error:"somthing went wrong!!!"});
+    }else{
+      res.json(adventure);
+    }
+  });
+});
+
+app.get('/admin/add', function(req, res, next) {
+  items.create( {data: req.query.q } , function (err, adventure) {
+    if(err){
+      res.json({error:"somthing went wrong!!!"});
+    }else{
+      res.json(adventure);
+    }
+  });
+});
+
+app.get('/admin/update/:id', function(req, res, next) {
+  items.findById( req.params.id , function (err, adventure) {
+    if(err){
+      res.json({error:"somthing went wrong!!!"});
+    }else{
+      if(adventure){
+        if(req.query.data){
+          adventure.data = req.query.data;
+        }
+        adventure.save();
+        res.json(adventure);
+      }else{
+        res.json({error: 'not found'});
+      }
+    }
+  });
+});
+
+app.get('/admin/rem/:id', function(req, res, next) {
+  items.findById(  req.params.id , function (err, adventure) {
+    if(err){
+      res.json({error:"somthing went wrong!!!"});
+    }else{
+      if(adventure){
+      	adventure.remove(function(err){
+	      	if(err){
+	          res.json('find, but no remove');
+	      	}else{
+	          res.json({sucsess: 'removed' });
+	      	}
+	      });
+      }else{
+        res.json({error: "not found"});
+      }
+    }
+  });
+});
+
+app.get('/admin/rem', function(req, res, next) {
+  items.findOne( {data: req.query.data } , function (err, adventure) {
+    if(err){
+      res.json({error:"somthing went wrong!!!"});
+    }else{
+      if(adventure){
+      	adventure.remove(function(err){
+	      	if(err){
+	          res.json('find, but no remove');
+	      	}else{
+	          res.json(adventure);
+	      	}
+	      });
+      }else{
+      	res.json('null');
+      }
+    }
+  });
+});
+
+/////// !!!!
 
 app.get('/gitpull123', function(req, res, next){
   var spawn = require('child_process').spawn;

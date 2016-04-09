@@ -145,22 +145,36 @@ app.get('/data', function(req, res, next){
 });
 
 app.get('/g/:file', function(req, res, next){
-  fs.stat( __dirname + '/static/read/'+req.params.file , function(err, stat){
-    if(err) {
-      res.send( err );
-    }else{
-      if(stat){
-        fs.readFile( __dirname + '/static/read/'+req.params.file , function(err, data){
-          if (err){
-            res.send(err);
-          }
-          res.send( data.toString('utf8') );
-        });
+  if(req.query.bd){
+    items.findById(  req.query.bd , function (err, adventure) {
+      if(err){
+        res.json({error:"somthing went wrong!!!"});
       }else{
-        res.send('no file on server');
+        if(adventure){
+        	res.send(adventure.data);
+        }else{
+          res.json({error: "not found"});
+        }
       }
-    }
-  });
+    });
+  }else{
+    fs.stat( __dirname + '/static/read/'+req.params.file , function(err, stat){
+      if(err) {
+        res.send( err );
+      }else{
+        if(stat){
+          fs.readFile( __dirname + '/static/read/'+req.params.file , function(err, data){
+            if (err){
+              res.send(err);
+            }
+            res.send( data.toString('utf8') );
+          });
+        }else{
+          res.send('no file on server');
+        }
+      }
+    });
+  }
 });
 
 app.get('/full/:file', function(req, res, next){

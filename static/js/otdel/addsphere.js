@@ -27,6 +27,9 @@
     if(data.file){
       atom.attr('file', data.file);
     }
+    if(data.bd){
+      atom.attr('bd', data.bd);
+    }
 
     var atomhtml;
 
@@ -70,6 +73,9 @@
 
     if(data.file){
       atomhtml.attr('file', data.file);
+    }
+    if(data.bd){
+      atomhtml.attr('bd', data.bd);
     }
 
     function makeasetter(b){ // эта функция добавляет геттеры и сеттеры для изменения масштаба и позиции добавленного
@@ -165,7 +171,7 @@
     $('.otdel-items').on({
       'mouseenter': function(e){
         if($(this).attr('file')){
-          $.get('/g/'+ $(this).attr('file') , function(data){
+          $.get('/g/'+ $(this).attr('file') + ($(this).attr('bd')?'?bd='+$(this).attr('bd'):'') , function(data){
             fullinfopanel.html(data);
             console.log(data);
           })
@@ -181,7 +187,7 @@
       },
       'click': function(){
         if($(this).attr('file'))
-        effects.go('/full/'+$(this).attr('file'));
+        effects.go('/full/'+$(this).attr('file') + ($(this).attr('bd')?'?bd='+$(this).attr('bd'):'') );
       },
       'mouseout': function(){
         fullinfopanel.style("visibility", "hidden");

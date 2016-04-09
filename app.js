@@ -13,7 +13,7 @@ app.use('/', express.static(__dirname + '/static'));
 app.use(cors());
 
 ///// !!!
-var item = new mongoose.Schema({ data: 'string'});
+var item = new mongoose.Schema({ data: 'string', tag: 'string' });
 var items = mongoose.model('metaclay', item );
 
 app.get('/admin', function(req, res, next) {
@@ -22,6 +22,16 @@ app.get('/admin', function(req, res, next) {
 
 app.get('/admin/json', function(req, res, next) {
   items.find( {} , function (err, adventure) {
+    if(err){
+      res.json({error:"somthing went wrong!!!"});
+    }else{
+      res.json(adventure);
+    }
+  });
+});
+
+app.get('/admin/json/:id', function(req, res, next) {
+  items.find( { tag: req.params.id } , function (err, adventure) {
     if(err){
       res.json({error:"somthing went wrong!!!"});
     }else{
@@ -48,6 +58,9 @@ app.get('/admin/update/:id', function(req, res, next) {
       if(adventure){
         if(req.query.data){
           adventure.data = req.query.data;
+        }
+        if(req.query.tag){
+          adventure.tag = req.query.tag;
         }
         adventure.save();
         res.json(adventure);

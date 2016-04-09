@@ -2,12 +2,27 @@
 <html>
   <head>
     <title>metaclay</title>
+    <link rel="stylesheet" href='css/admin.css' />
     <script type='text/javascript' src='js/lib/jquery2.2.js'></script>
     <script type='text/javascript' src='http://underscorejs.ru/underscore-min.js'></script>
+    <style>
+    .tf{
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: pink;
+      max-width: 30vw;
+      border: 2px solid black;
+    }
+    .tf pre{
+      max-width: 30vw;
+    }
+    </style>
   </head>
   <body>
     <div id='body'></div>
     <button id='addtext'>добавить текст</button>
+    <input id='rem'>удалить</input>
     <script>
     function bb(){
       $('textarea').off( 'input');
@@ -15,24 +30,55 @@
         function(){
           var updata = $(this).val();
           var id = $(this).attr('id');
-          $.get('/admin/update/'+id+'?data='+updata, function(){
-            console.log("update");
+          $.get('/admin/update/'+id+'?data='+updata, function(data){
+            sflip(data);
           });
         } , 100 ));
-    }
+      $('input').on( 'input', _.debounce(
+        function(){
+          //alert('fuckkk');
+          var updata = $(this).val();
+          var id = $(this).attr('id');
+          $.get('/admin/update/'+id+'?tag='+updata, function(data){
+            sflip(data);
+          });
+        } , 100 ) );
+     }
       $.get('/admin/json', function(data){
         for(var n in data){
-          $('#body').append('<p>'+data[n]._id+'</p><textarea id="'+data[n]._id+'">'+data[n].data+'</textarea>');
+          $('#body').append('<div class="blk"><p>'+data[n]._id+'</p><input class=".inp" id="'+data[n]._id+'" value="'+(data[n].tag?data[n].tag:'')+'" /><textarea id="'+data[n]._id+'">'+data[n].data+'</textarea></div>');
         }
         bb();
       });
       $('#addtext').on('click', function(){
         $.get('/admin/add?q=new', function(data){
           console.log(data);
-          $('#body').append('<p>'+data._id+'</p><textarea id="'+data._id+'">'+data.data+'</textarea>');
+          $('#body').append('<div class="blk"><p>'+data._id+'</p><input d="'+data[n]._id+'">'+data[n].tag+'</input><textarea id="'+data._id+'">'+data.data+'</textarea></div>');
             bb();
         });
       });
+
+      function sflip(d){
+        var dt = typeof d != typeof ''? JSON.stringify(d, null, '\t'): d;
+        dt = 'данные успешно сохранены как: \n' + dt;
+        $('body').append('<div class="tf"><pre>'+dt+'</pre></div>');
+        setTimeout(function(){
+           $('.tf').remove();
+        }, 1200);
+
+
+        $('#rem').on( 'input', _.debounce(
+          function(){
+            //alert('fuckkk');
+            var updata = $(this).val();
+            $.get('/admin/rem/'+updata, function(data){
+              sflip(data);
+              if(data.sucsess){
+                window.location.reload();
+              }
+            });
+          } , 100 ) );
+      }
     </script>
   </body>
 </html>

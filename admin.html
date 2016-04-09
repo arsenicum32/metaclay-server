@@ -2,28 +2,29 @@
 <html>
   <head>
     <title>metaclay</title>
+    <link rel="stylesheet" href='css/about.css' />
+    <link rel="stylesheet" href='css/about_otdel.css' />
+    <link rel="stylesheet" href='css/obord_new.css' />
+    <link rel="stylesheet" href='css/obdesc.css' />
+    <link rel="stylesheet" href='css/frame.css' />
+    <link rel="stylesheet" href='css/style.css' />
     <link rel="stylesheet" href='css/admin.css' />
     <script type='text/javascript' src='js/lib/jquery2.2.js'></script>
     <script type='text/javascript' src='http://underscorejs.ru/underscore-min.js'></script>
-    <style>
-    .tf{
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: pink;
-      max-width: 30vw;
-      border: 2px solid black;
-    }
-    .tf pre{
-      max-width: 30vw;
-    }
-    </style>
   </head>
   <body>
-    <div id='body'></div>
-    <button id='addtext'>добавить текст</button>
-    <input id='rem'>удалить</input>
+    <div id='body'>
+      <a href='' id='addtext'>добавить текст</a>
+      <input id='rem'>удалить</input>
+    </div>
+    <div id='preview'></div>
     <script>
+    function view(el){
+      //alert($(el).attr('id'));
+      $.get('/g/desc.html?bd='+$(el).attr('id'), function(data){
+        $('#preview').html(data);
+      });
+    }
     function bb(){
       $('textarea').off( 'input');
       $('textarea').on( 'input', _.debounce(
@@ -46,13 +47,14 @@
      }
       $.get('/admin/json', function(data){
         for(var n in data){
-          $('#body').append('<div class="blk"><p>'+data[n]._id+'</p><input class=".inp" id="'+data[n]._id+'" value="'+(data[n].tag?data[n].tag:'')+'" /><textarea id="'+data[n]._id+'">'+data[n].data+'</textarea></div>');
+          $('#body').append('<div class="blk"><p>'+data[n]._id+'</p><input class=".inp" id="'+data[n]._id+'" value="'+(data[n].tag?data[n].tag:'')+'" /><textarea id="'+data[n]._id+'">'+data[n].data+'</textarea><a id="'+data[n]._id+'" href="#" onclick="view(this)">view</a></div>');
         }
         bb();
       });
       $('#addtext').on('click', function(){
         $.get('/admin/add?q=new', function(data){
           console.log(data);
+          window.location.reload();
           $('#body').append('<div class="blk"><p>'+data._id+'</p><input d="'+data[n]._id+'">'+data[n].tag+'</input><textarea id="'+data._id+'">'+data.data+'</textarea></div>');
             bb();
         });

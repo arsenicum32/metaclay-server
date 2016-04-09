@@ -12,3 +12,138 @@
   width: 50px;
   line-height: 1em;
 }
+.toptext{
+  width: 80%;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+.ab-lab{
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 5%;
+}
+.link-about{
+  text-decoration: none;
+  background: #eee;
+  color: #333;
+}
+.block-profile {
+width: 100%;
+overflow: scroll;
+overflow-x: hidden;
+display: -webkit-box;
+display: -webkit-flex;
+display: -ms-flexbox;
+display: flex;
+-webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+-webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+}
+.block-profile .profile {
+margin: 5px;
+}
+.block-profile .profile img {
+width: 120px;
+border-radius: 50%;
+}
+.block-profile .profile .name {
+font-weight: bold;
+}
+.block-profile .profile .desc {
+font-weight: lighter;
+font-size: 0.7em;
+}
+.block-profile .profile p {
+width: 120px;
+line-height: 1em;
+margin-top: 0.5em;
+}
+.bold{
+  font-weight: normal;
+  font-size: 1.2em;
+}
+.block-att {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+}
+.block-att .profile {
+  margin: 5px;
+}
+.block-att .profile img {
+  width: 120px;
+}
+.block-att .profile .desc {
+  font-weight: lighter;
+  text-align: center;
+}
+.block-att .profile p {
+  width: 120px;
+  line-height: 1em;
+  margin-top: 0.5em;
+}
+.block-att .profile a {
+  top: 0px;
+  margin: auto;
+}
+.active{
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.block-profile {
+width: 100%;
+overflow: scroll;
+overflow-x: hidden;
+display: -webkit-box;
+display: -webkit-flex;
+display: -ms-flexbox;
+display: flex;
+-webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+-webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+}
+.block-profile .profile {
+margin: 5px;
+}
+.block-profile .profile img {
+width: 120px;
+border-radius: 50%;
+}
+.block-profile .profile .name {
+font-weight: bold;
+}
+.block-profile .profile .desc {
+font-weight: lighter;
+font-size: 0.7em;
+}
+.block-profile .profile p {
+width: 120px;
+line-height: 1em;
+margin-top: 0.5em;
+}
+.block-profile a{
+  text-decoration: none;
+  color: black;
+  background: #eee;
+  padding: 5px;
+  margin: 10px;
+}
+.block-profile img{
+  width: 20%;
+  height: 20%;
+}

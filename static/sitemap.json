@@ -66,7 +66,7 @@
     {
       "text": "штат",
       "desc": " ",
-      "file": "shtat.html"
+      "file": "shtat.html?bd=5709341a75ea90ad537e0e64"
     },{
       "text": "инфо", "desc": " ", "file": "about_lab.html", "active": true},
     {"text": "аттестаты", "desc": " ", "file": "att.html"},

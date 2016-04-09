@@ -1,4 +1,22 @@
+body{
+  margin: 0;
+  overflow: hidden;
+}
+#preview{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50vw;
+  height: 100vh;
+  border: 3px solid black;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
 #body {
+  width: 50vw;
+  height: 100vh;
+  overflow: scroll;
+  float: left;
   margin: 0;
   display: -webkit-box;
   display: -webkit-flex;
@@ -30,7 +48,8 @@
   font-size: 1em;
 }
 #body .blk textarea {
-  resize: vertical;
+  resize: vertical !important;
+  height: 30vh;
 }
 #body .blk p {
   margin: 0;
@@ -38,4 +57,22 @@
   text-align: center;
   background: #444;
   color: #fff;
+}
+#body .blk a {
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  background: #444;
+  color: #fff;
+}
+.tf{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: pink;
+  max-width: 30vw;
+  border: 2px solid black;
+}
+.tf pre{
+  max-width: 30vw;
 }

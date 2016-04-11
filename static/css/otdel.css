@@ -7,6 +7,7 @@
   position: absolute;
   top: 0;
   left: 20vw;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 .smooth{
   -webkit-transition: -webkit-transform 0.5s ease-in-out 0.1s;

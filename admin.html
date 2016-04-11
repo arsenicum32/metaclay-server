@@ -19,6 +19,9 @@
     </div>
     <div id='preview'></div>
     <script>
+    function post(url, params, onAjaxSuccess ){
+      $.post( url , (params || {}) , onAjaxSuccess );
+    }
     function view(el){
       //alert($(el).attr('id'));
       $.get('/g/desc.html?bd='+$(el).attr('id'), function(data){
@@ -31,18 +34,24 @@
         function(){
           var updata = $(this).val();
           var id = $(this).attr('id');
-          $.get('/admin/update/'+id+'?data='+updata, function(data){
+          post( '/admin/update/'+id, {data: updata}, function(data){
             sflip(data);
           });
+          // $.get('/admin/update/'+id+'?data='+updata, function(data){
+          //   sflip(data);
+          // });
         } , 100 ));
       $('input').on( 'input', _.debounce(
         function(){
           //alert('fuckkk');
           var updata = $(this).val();
           var id = $(this).attr('id');
-          $.get('/admin/update/'+id+'?tag='+updata, function(data){
+          post('/admin/update/'+id, {tag: updata}, function(data){
             sflip(data);
           });
+          // $.get('/admin/update/'+id+'?tag='+updata, function(data){
+          //   sflip(data);
+          // });
         } , 100 ) );
      }
       $.get('/admin/json', function(data){

@@ -50,7 +50,7 @@ app.get('/admin/add', function(req, res, next) {
   });
 });
 
-app.get('/admin/update/:id', function(req, res, next) {
+app.post('/admin/update/:id', function(req, res, next) {
   items.findById( req.params.id , function (err, adventure) {
     if(err){
       res.json({error:"somthing went wrong!!!"});

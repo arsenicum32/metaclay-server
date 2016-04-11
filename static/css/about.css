@@ -99,8 +99,9 @@ margin-top: 0.5em;
   margin: auto;
 }
 .active{
-  overflow-y: scroll;
-  overflow-x: hidden;
+  /*overflow-y: scroll;
+  overflow-x: hidden; выключили из-за ебнутого фаерфокса */
+  overflow: hidden;
 }
 .block-profile {
 width: 100%;
@@ -145,5 +146,5 @@ margin-top: 0.5em;
 }
 .block-profile img{
   width: 20%;
-  height: 20%;
+  /*height: 20%;*/
 }

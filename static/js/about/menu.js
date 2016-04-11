@@ -6,6 +6,9 @@
 
   var activeobject;
 
+  var div1 = '<div style="overflow-y: scroll; position: relative; right: -16px; width: 100%; height: 100%; ">';
+  var div2 = '</div>'; ////// специальный хак для ебанутого фаерфокса
+
   function addPage(n , dd){
     var text = (dd.text || "название раздела").split("").join("<br>");
     var desc = (dd.desc || "краткое описание раздела не очень большое, но и не такое маленькое, чтобы не заметить");
@@ -29,7 +32,7 @@
 
     if(dd.active){
       $.get('/g/'+ obj.attr('file'), function(data){
-          obj.html(data);
+          obj.html(div1+data+div2); /// хак здесь
       });
       obj.classed('active', true)
       .transition().style('left' , x/8 + "px" ).duration(980);
@@ -55,7 +58,7 @@
           $.get('/g/'+ d3.select(this).attr('file'), function(data){
             $('.fullinfopanel').each(function(){
               if($(this).hasClass('active')){
-                $(this).html(data);
+                $(this).html(div1+data+div2); //// и ещё один здесь
               }else{
                 $(this).html('<div class="flexblock" ><h1 class="razdel">'+$(this).attr('text')+'</h1><p>'+$(this).attr('desc')+'</p></div>');
               }

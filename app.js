@@ -1,5 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose'); /// в продакшн удалить !!!
+var bodyParser = require('body-parser');
 var cors = require('cors');
 var fs = require('fs');
 
@@ -9,6 +10,9 @@ var app = express();
 
 var http = require('http').Server(app);
 
+
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use('/', express.static(__dirname + '/static'));
 app.use(cors());
 
@@ -50,7 +54,7 @@ app.get('/admin/add', function(req, res, next) {
   });
 });
 
-app.post('/admin/update/:id', function(req, res, next) {
+app.get('/admin/update/:id', function(req, res, next) {
   items.findById( req.params.id , function (err, adventure) {
     if(err){
       res.json({error:"somthing went wrong!!!"});

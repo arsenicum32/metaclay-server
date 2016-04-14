@@ -92,9 +92,19 @@
     }
   });
 
-  hamburger.on('click', function(){
-    effects.go('/about');
-  })
+  hamburger.on({
+    'click': function(){
+      effects.go('/about');
+    },
+    'mouseover': function(){
+      tooltip.style("visibility", "visible");
+      tooltip.text( 'О лаборатории' );
+      tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX-180)+"px");  /// чтобы понятно было
+    },
+    'mouseout': function(){
+      tooltip.style("visibility", "hidden");  /// чтобы понятно было
+    }
+  });
 
   window.clickpos = function(x, y) {
     var w = $(window).width(),

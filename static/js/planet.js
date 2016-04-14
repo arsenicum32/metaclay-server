@@ -175,7 +175,7 @@
         //drawPath.draw([[$(this).attr('cx'),$(this).attr('cy')],[200,200],[300,300]]); /////////////////////////////////////////
       });
       gifs[i].on('mousemove', function(){
-        return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
+        tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
       });
       gifs[i].on('mouseleave', function(){
         var current = pla[i].r || 30;
@@ -183,7 +183,7 @@
         var imgs = $(this).attr('srcd');
         $(this).attr('src', imgs.split('.')[0]+'s.jpg' );
         $(this).css('transform', 'scale(1)');
-        return tooltip.style("visibility", "hidden");
+        tooltip.style("visibility", "hidden");
       });
     }
   }

@@ -35,8 +35,18 @@
     }
   });
 
-  hamburger.on('click', function(){
+  hamburger.on({
+    'click': function(){
     effects.go('/nodoor');
+    },
+    'mouseover': function(){
+      tooltip.style("visibility", "visible");
+      tooltip.text( 'на главную' );
+      tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX-120)+"px");  /// чтобы понятно было
+    },
+    'mouseout': function(){
+      tooltip.style("visibility", "hidden");  /// чтобы понятно было
+    }
   });
 
   window.clickpos = function(x, y) {

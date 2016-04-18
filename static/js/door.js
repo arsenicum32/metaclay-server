@@ -38,17 +38,17 @@
       offset:"100%", style:"stop-color:#ccc;stop-opacity:1"
     });
 
-    var gr = defs.append('linearGradient').attr({
+    var gr = defs.append('radialGradient').attr({
       id:"grad", x1:"0%", y1:"0%",x2:"0%", y2:"100%"
     })
     gr.append('stop').attr({
-      offset:"0%", style:"stop-color:#ccc;stop-opacity:1"
+      offset:"30%", style:"stop-color:#fff;stop-opacity:1"
     });
     gr.append('stop').attr({
-      offset:"50%", style:"stop-color:#fff;stop-opacity:1"
+      offset:"90%", style:"stop-color:#eee;stop-opacity:1"
     });
     gr.append('stop').attr({
-      offset:"100%", style:"stop-color:#ccc;stop-opacity:1"
+      offset:"100%", style:"stop-color:#eaeaea;stop-opacity:1"
     });
 
 
@@ -77,6 +77,54 @@
       'x': x/2,
       'y': 0
     });
+
+
+////////////// tiles //////////////
+    var distb = 4;
+    for(var i=0;i<25;i++){
+      var tile = door.append('rect').attr({
+        'width': x/10,
+        'height': x/10,
+        'fill': 'url(#grad)',
+        'stroke-width': '1px',
+        'stroke': '#ccc',
+        'x': x/2 + (i%5)*(x/10+distb) + distb,
+        'y': (x/10+distb) * ~~(i/5) + (y - (x/10+distb)*5)/2
+      });
+      ranim.push(tile);
+    }
+    for(var i=0;i<25;i++){
+      var tile = door.append('rect').attr({
+        'width': x/10,
+        'height': x/10,
+        'fill': 'url(#grad)',
+        'stroke-width': '1px',
+        'stroke': '#ccc',
+        'x': x/2 - x/10 - (i%5)*(x/10+distb) - distb,
+        'y': (x/10+distb) * ~~(i/5) + (y - (x/10+distb)*5)/2
+      });
+      lanim.push(tile);
+    }
+//////////////////////////////////
+
+    var decr = x/9;
+
+    var decorl = door.append('path').attr({
+      'd': 'M '+x/2+','+(y/2 - decr)+' a '+decr+','+decr+' 0 1,0 0,'+2*decr
+    }).style({
+      fill:'none',
+      stroke:'#333',
+      'stroke-width':3
+    })
+
+    var decorr = door.append('path').attr({
+      'd': 'M '+x/2+','+(y/2 - decr)+' a '+decr+','+decr+' 0 1,1 0,'+2*decr
+    }).style({
+      fill:'none',
+      stroke:'#333',
+      'stroke-width':3
+    })
+
 
     ranim.push(rdoor);
 
@@ -132,9 +180,13 @@
     //lanim.push(logo);
 
     function nexstep(){
+
+      decorl.transition().attr('transform', 'translate(-'+x*1.2+',0)'  ).delay(50).duration(2500);
+      decorr.transition().attr('transform', 'translate('+(-x/2+x*1.2)+',0)'  ).delay(50).duration(2500);
+
       for(var n in ranim){
-        var cpos = lanim[n].attr('x');
-        ranim[n].transition().attr('x', cpos + x*1.2 ).delay(50).duration(2500);
+        var cpos = ranim[n].attr('x');
+        ranim[n].transition().attr('x', cpos - x/2 + x*1.2 ).delay(50).duration(2500);
       }
 
       for(var n in lanim){

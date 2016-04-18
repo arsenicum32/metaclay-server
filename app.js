@@ -21,7 +21,11 @@ var item = new mongoose.Schema({ data: 'string', tag: 'string' });
 var items = mongoose.model('metaclay', item );
 
 app.get('/admin', function(req, res, next) {
-  res.sendFile(__dirname + '/admin.html');
+  if(req.query.p && req.query.p == '123456'){
+    res.sendFile(__dirname + '/admin.html');
+  }else{
+    res.status(404).end();
+  }
 });
 
 app.get('/admin/json', function(req, res, next) {

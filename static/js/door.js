@@ -107,6 +107,9 @@
     }
 //////////////////////////////////
 
+
+//////////////// docor for door
+
     var decr = x/9;
 
     var decorl = door.append('path').attr({
@@ -115,7 +118,7 @@
       fill:'none',
       stroke:'#333',
       'stroke-width':3
-    })
+    });
 
     var decorr = door.append('path').attr({
       'd': 'M '+x/2+','+(y/2 - decr)+' a '+decr+','+decr+' 0 1,1 0,'+2*decr
@@ -123,8 +126,56 @@
       fill:'none',
       stroke:'#333',
       'stroke-width':3
-    })
+    });
 
+    for (var i=-1.55; i< 1.65 ; i+=0.1){
+      var line = door.append('line').attr({
+        'x1' : x/2 - Math.cos(i)*decr ,
+        'y1' : (y/2) + Math.sin(i)*decr,
+        'x2' : x/2 - Math.cos(i)*decr*1.2,
+        'y2' : (y/2) + Math.sin(i)*decr*1.2,
+        'stroke-width': 2,
+        'stroke': '#333'
+      });
+      if(Math.random()> 0.6){
+        var circle = door.append('circle').attr({
+          'cx' : x/2 - Math.cos(i)*decr*1.22 ,
+          'cy' : (y/2) + Math.sin(i)*decr*1.22,
+          'r' : 4,
+          'stroke-width': 2,
+          'fill': 'none',
+          'stroke': '#333'
+        });
+        lanim.push(circle);
+      }
+      lanim.push(line);
+
+
+
+      var rline = door.append('line').attr({
+        'x1' : x/2 + Math.cos(i)*decr ,
+        'y1' : (y/2) + Math.sin(i)*decr,
+        'x2' : x/2 + Math.cos(i)*decr*1.2,
+        'y2' : (y/2) + Math.sin(i)*decr*1.2,
+        'stroke-width': 2,
+        'stroke': '#333'
+      });
+      if(Math.random()> 0.6){
+        var circle = door.append('circle').attr({
+          'cx' : x/2 + Math.cos(i)*decr*1.22 ,
+          'cy' : (y/2) + Math.sin(i)*decr*1.22,
+          'r' : 4,
+          'stroke-width': 2,
+          'fill': 'none',
+          'stroke': '#333'
+        });
+        ranim.push(circle);
+      }
+      ranim.push(rline);
+    }
+
+
+///////////////////////////////////
 
     ranim.push(rdoor);
 
@@ -185,8 +236,18 @@
       decorr.transition().attr('transform', 'translate('+(-x/2+x*1.2)+',0)'  ).delay(50).duration(2500);
 
       for(var n in ranim){
-        var cpos = ranim[n].attr('x');
-        ranim[n].transition().attr('x', cpos - x/2 + x*1.2 ).delay(50).duration(2500);
+        if(ranim[n].attr('x')){
+          var cpos = ranim[n].attr('x');
+          ranim[n].transition().attr('x', cpos - x/2 + x*1.2 ).delay(50).duration(2500);
+        }
+        else if(ranim[n].attr('x1')){
+          var cpos = ranim[n].attr('x1');
+          var cpos2 = ranim[n].attr('x2');
+          ranim[n].transition().attr({'x1': cpos - x/2 + x*1.2,'x2': cpos2 - x/2 + x*1.2} ).delay(50).duration(2500);
+        }else if(ranim[n].attr('cx')){
+          var cpos = ranim[n].attr('cx');
+          ranim[n].transition().attr('cx', cpos - x/2 + x*1.2 ).delay(50).duration(2500);
+        }
       }
 
       for(var n in lanim){
@@ -198,6 +259,10 @@
         }else if(lanim[n].attr('cx')){
           var cpos = lanim[n].attr('cx');
           lanim[n].transition().attr('cx', cpos - x*1.2 ).delay(50).duration(2500);
+        }else if(lanim[n].attr('x1')){
+          var cpos = lanim[n].attr('x1');
+          var cpos2 = lanim[n].attr('x2');
+          lanim[n].transition().attr({'x1': cpos - x*1.2,'x2': cpos2 - x*1.2} ).delay(50).duration(2500);
         }
       }
     }

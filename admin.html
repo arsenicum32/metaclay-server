@@ -19,6 +19,11 @@
     </div>
     <div id='preview'></div>
     <script>
+    // $.post('/test', {test: "test"}).done(function(response){
+    //   console.log(response);
+    // }).fail(function(response){
+    //   console.log('fail');
+    // })
     function view(el){
       //alert($(el).attr('id'));
       $.get('/g/desc.html?bd='+$(el).attr('id'), function(data){
@@ -31,8 +36,10 @@
         function(){
           var updata = $(this).val();
           var id = $(this).attr('id');
-          $.get('/admin/update/'+id+'?data='+updata, function(data){
+          $.post('/admin/update/'+id,{data:updata}).done(function(data){
             sflip(data);
+          }).fail(function(data){
+            sflip({error: 'Что-то пошло не так...'});
           });
         } , 100 ));
       $('input').on( 'input', _.debounce(
@@ -40,8 +47,10 @@
           //alert('fuckkk');
           var updata = $(this).val();
           var id = $(this).attr('id');
-          $.get('/admin/update/'+id+'?tag='+updata, function(data){
+          $.post('/admin/update/'+id,{tag:updata}).done(function(data){
             sflip(data);
+          }).fail(function(data){
+            sflip({error: 'Что-то пошло не так...'});
           });
         } , 100 ) );
      }

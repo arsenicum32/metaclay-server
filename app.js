@@ -58,17 +58,17 @@ app.get('/admin/add', function(req, res, next) {
   });
 });
 
-app.get('/admin/update/:id', function(req, res, next) {
+app.post('/admin/update/:id', function(req, res, next) {
   items.findById( req.params.id , function (err, adventure) {
     if(err){
       res.json({error:"somthing went wrong!!!"});
     }else{
       if(adventure){
-        if(req.query.data){
-          adventure.data = req.query.data;
+        if(req.body.data){
+          adventure.data = req.body.data;
         }
-        if(req.query.tag){
-          adventure.tag = req.query.tag;
+        if(req.body.tag){
+          adventure.tag = req.body.tag;
         }
         adventure.save();
         res.json(adventure);

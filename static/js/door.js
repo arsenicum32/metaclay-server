@@ -9,23 +9,6 @@
       'z-index': 120
     });
 
-    // var filter = door.append('defs')
-    //     .append('filter').attr('id',"inset-shadow")
-    // filter.append('feComponentTransfer').attr({'in':"SourceAlpha",'result':"inset-selection"})
-    //     .append('feFuncA').attr({type:"discrete",tableValues:"0 1 1 1 1 1"});
-    // filter.append('feComponentTransfer').attr({"in":"SourceGraphic","result":"original-no-fill"})
-    //     .append('feFuncA').attr({ttype:"discrete",tableValues:"0 0 1"});
-    // filter.append('feColorMatrix').attr({type:"matrix","in":"original-no-fill",result:"new-source-alpha",values:"0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"});
-    // filter.append('feGaussianBlur').attr({"in":"new-source-alpha",result:"blur",stdDeviation:"5"});
-    // filter.append('feGaussianBlur').attr({"in":"new-source-alpha",result:"blur1",stdDeviation:"10"});
-    // filter.append('feGaussianBlur').attr({"in":"new-source-alpha",result:"blur2",stdDeviation:"15"});
-    // var merge = filter.append('feMerge').attr("result","blur");
-    // merge.append('feMergeNode').attr({"in":"blur",mode:"normal"});
-    // merge.append('feMergeNode').attr({"in":"blur2",mode:"normal"});
-    // merge.append('feMergeNode').attr({"in":"blur3",mode:"normal"});
-    // filter.append('feComposite').attr({operator:"in","in":"inset-selection",in2:"blur",result:"inset-blur"});
-    // filter.append('feComposite').attr({operator:"over","in":"original-no-fill",in2:"inset-blur"});
-
     var defs = door.append('defs');
 
     var gr = defs.append('radialGradient').attr({
@@ -40,6 +23,19 @@
 
     var gr = defs.append('radialGradient').attr({
       id:"grad", x1:"0%", y1:"0%",x2:"0%", y2:"100%"
+    })
+    gr.append('stop').attr({
+      offset:"30%", style:"stop-color:#fff;stop-opacity:1"
+    });
+    gr.append('stop').attr({
+      offset:"90%", style:"stop-color:#eee;stop-opacity:1"
+    });
+    gr.append('stop').attr({
+      offset:"100%", style:"stop-color:#eee;stop-opacity:1"
+    });
+
+    var gr = defs.append('radialGradient').attr({
+      id:"gradtile", x1:"0%", y1:"0%",x2:"0%", y2:"100%"
     })
     gr.append('stop').attr({
       offset:"30%", style:"stop-color:#fff;stop-opacity:1"
@@ -85,9 +81,9 @@
       var tile = door.append('rect').attr({
         'width': x/10,
         'height': x/10,
-        'fill': 'url(#grad)',
-        'stroke-width': '1px',
-        'stroke': '#ccc',
+        'fill': 'url(#gradtile)',
+        // 'stroke-width': '1px',
+        // 'stroke': '#ccc',
         'x': x/2 + (i%5)*(x/10+distb) + distb,
         'y': (x/10+distb) * ~~(i/5) + (y - (x/10+distb)*5)/2
       });
@@ -97,9 +93,9 @@
       var tile = door.append('rect').attr({
         'width': x/10,
         'height': x/10,
-        'fill': 'url(#grad)',
-        'stroke-width': '1px',
-        'stroke': '#ccc',
+        'fill': 'url(#gradtile)',
+        // 'stroke-width': '1px',
+        // 'stroke': '#ccc',
         'x': x/2 - x/10 - (i%5)*(x/10+distb) - distb,
         'y': (x/10+distb) * ~~(i/5) + (y - (x/10+distb)*5)/2
       });
@@ -110,7 +106,9 @@
 
 //////////////// docor for door
 
-    var decr = x/9;
+    var decr = x/9,
+        shtsize = 1.12,
+        raduiscircle = 4;
 
     var decorl = door.append('path').attr({
       'd': 'M '+x/2+','+(y/2 - decr)+' a '+decr+','+decr+' 0 1,0 0,'+2*decr
@@ -128,23 +126,172 @@
       'stroke-width':3
     });
 
-    for (var i=-1.55; i< 1.65 ; i+=0.1){
+
+
+    // for(var l=0;l<4;l++){
+    //   var lbox = door.append('line').attr({
+    //     'x1' : x/2 + x/4 + 20 * (l==0||l==2?-1:1) ,
+    //     'y1' : (y/2) + y/4 + 20 * (l==1||l==3?-1:1),
+    //     'x2' : x/2 + x/4 + 20 * (l==1||l==3?-1:1) + 10 * (l==0||l==2?-1:1),
+    //     'y2' : (y/2) + y/4 + 20 * (l==0||l==2?-1:1) + 10 * (l==1||l==3?-1:1),
+    //     'stroke-width': 2,
+    //     'stroke': '#333'
+    //   });
+    // }
+
+    var ltext = door.append('text').attr({
+      'x' :  x/12 ,
+      'y' : y/8,
+      'font-family':"sans-serif",
+       'font-size':"20px",
+       fill:"#333"
+    }).text('Metaclay');
+    var ltextb = door.append('text').attr({
+      'x' :  x/12 ,
+      'y' : y/8 + 25,
+      'font-family':"sans-serif",
+       'font-size':"20px",
+       fill:"#333"
+    }).text('Lab v0.1');
+
+    lanim.push(ltext);
+    lanim.push(ltextb);
+
+    var box = door.append('rect').attr({
+      'x' : x/2 + x/4 ,
+      'y' : (y/2) + y/4 ,
+      'width' : 40,
+      'height' : 40,
+      'fill': 'none',
+      'stroke-width': 2,
+      'stroke': '#333'
+    });
+
+    ranim.push(box);
+
+    var indexiter = 0;
+
+    for (var i=-1.55; i< 1.45 ; i+=0.2){
+      indexiter++;
+      var pointdel = true;
+
+      function dlines(ind , dt ){
+        // var dt = {
+        //   rd: 2, //
+        //   xp: - x/4,
+        //   csx: - 4,
+        //   ofs: 1.2,
+        //   ypl: ???,
+        //   dt.left - левая дверь или правая
+        // }
+        var k = dt.right && dt.right==true ? -1: 1;
+        if(indexiter==ind){  ////////////// рисуем хуергу с линиями
+          pointdel = false;
+          var longline1 = door.append('line').attr({
+            'x1' : x/2 - k * ( Math.cos(i)*decr*(shtsize)*(dt.ofs||1)),
+            'y1' : (y/2) + Math.sin(i)*decr*(shtsize)*(dt.ofs||1) + (dt.ypl||0),
+            'x2' : x/2 - k * (Math.cos(i)*decr*shtsize*dt.rd),
+            'y2' : (y/2) + Math.sin(i)*decr*shtsize*dt.rd+ (dt.ypl||0),
+            'stroke-width': 2,
+            'stroke': '#333'
+          }),
+          longline2 = door.append('line').attr({
+            'x1' : x/2 - k * ( Math.cos(i)*decr*shtsize*dt.rd) ,
+            'y1' : (y/2) + Math.sin(i)*decr*shtsize*dt.rd + (dt.ypl||0),
+            'x2' : (x/2 - k * ( Math.cos(i)*decr*shtsize*dt.rd)) + (dt.xp||0),
+            'y2' : (y/2) + Math.sin(i)*decr*shtsize*dt.rd + (dt.yp||0)+ (dt.ypl||0),
+            'stroke-width': 2,
+            'stroke': '#333'
+          }),
+          circleend = door.append('circle').attr({
+            'cx' : (x/2 - k * ( Math.cos(i)*decr*shtsize*dt.rd)) + (dt.xp||0) + (dt.csx||0),
+            'cy' : (y/2) + Math.sin(i)*decr*shtsize*dt.rd + (dt.yp||0) + (dt.csy||0)+ (dt.ypl||0),
+            'r': raduiscircle,
+            'class': 'door-circle'
+          });
+          if(dt.startc){
+            var anyitem = door.append('circle').attr({
+              'cx' : x/2 - k * ( Math.cos(i)*decr*(shtsize)*(dt.ofs||1)),
+              'cy' : (y/2) + Math.sin(i)*decr*(shtsize)*(dt.ofs||1) + (dt.ypl||0),
+              'r': raduiscircle,
+              'class': 'door-circle'
+            });
+            dt.right==true?ranim.push(anyitem):lanim.push(anyitem);
+          }
+          if(dt.right==true){
+            ranim.push(longline1),ranim.push(longline2),ranim.push(circleend);
+          }else{
+            lanim.push(longline1),lanim.push(longline2),lanim.push(circleend);
+          }
+        }
+      }
+
+      dlines(5,{
+        rd: 2,
+        xp: - x/4,
+        csx: - 4
+      }),dlines(5,{
+        rd: 2,
+        xp: - x/20,
+        csx: - 4,
+        ofs: 1.9,
+        ypl: 15,
+        startx: true
+      }),dlines(12,{
+        rd: 2.3,
+        xp: - x/16,
+        csx: - 4
+      }),dlines(12,{
+        rd: 2.3,
+        xp: - x/30,
+        csx: - 4,
+        ofs: 1.8,
+        ypl: 20,
+        startc: true
+      }),dlines(13,{
+        rd: 1.2,
+        yp: x/16,
+        csy: 4
+      });
+
+
+      dlines(6,{
+        rd: 1.3,
+        xp: + x/4,
+        csx: + 4,
+        right: true
+      });
+
+      dlines(6,{
+        rd: 1.3,
+        xp: + x/20,
+        csx: + 4,
+        ofs: 1.1,
+        ypl: -50,
+        right: true
+      });
+
+      dlines(12,{
+        rd: 2.3,
+        xp: + x/16,
+        csx: + 4,
+        right: true
+      });
+
       var line = door.append('line').attr({
         'x1' : x/2 - Math.cos(i)*decr ,
         'y1' : (y/2) + Math.sin(i)*decr,
-        'x2' : x/2 - Math.cos(i)*decr*1.2,
-        'y2' : (y/2) + Math.sin(i)*decr*1.2,
+        'x2' : x/2 - Math.cos(i)*decr*shtsize,
+        'y2' : (y/2) + Math.sin(i)*decr*shtsize,
         'stroke-width': 2,
         'stroke': '#333'
       });
-      if(Math.random()> 0.6){
+      if(Math.random()> 0.6 && pointdel && (indexiter - 1)){
         var circle = door.append('circle').attr({
-          'cx' : x/2 - Math.cos(i)*decr*1.22 ,
-          'cy' : (y/2) + Math.sin(i)*decr*1.22,
-          'r' : 4,
-          'stroke-width': 2,
-          'fill': 'none',
-          'stroke': '#333'
+          'cx' : x/2 - Math.cos(i)*decr*(shtsize+0.02) ,
+          'cy' : (y/2) + Math.sin(i)*decr*(shtsize+0.02),
+          'r': raduiscircle,
+          'class': 'door-circle'
         });
         lanim.push(circle);
       }
@@ -155,19 +302,17 @@
       var rline = door.append('line').attr({
         'x1' : x/2 + Math.cos(i)*decr ,
         'y1' : (y/2) + Math.sin(i)*decr,
-        'x2' : x/2 + Math.cos(i)*decr*1.2,
-        'y2' : (y/2) + Math.sin(i)*decr*1.2,
+        'x2' : x/2 + Math.cos(i)*decr*shtsize,
+        'y2' : (y/2) + Math.sin(i)*decr*shtsize,
         'stroke-width': 2,
         'stroke': '#333'
       });
-      if(Math.random()> 0.6){
+      if(Math.random()> 0.6 && pointdel && (indexiter - 1)){
         var circle = door.append('circle').attr({
-          'cx' : x/2 + Math.cos(i)*decr*1.22 ,
-          'cy' : (y/2) + Math.sin(i)*decr*1.22,
-          'r' : 4,
-          'stroke-width': 2,
-          'fill': 'none',
-          'stroke': '#333'
+          'cx' : x/2 + Math.cos(i)*decr*(shtsize+0.02) ,
+          'cy' : (y/2) + Math.sin(i)*decr*(shtsize+0.02),
+          'r': raduiscircle,
+          'class': 'door-circle'
         });
         ranim.push(circle);
       }
@@ -219,7 +364,7 @@
       }else{
         logo.attr('transform','');
         clearInterval(inter);
-        logorun();
+        logorun();     //////// когда доделаешь раскомментируй
         nexstep();
       }
     },10);

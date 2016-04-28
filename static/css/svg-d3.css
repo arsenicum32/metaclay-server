@@ -19,3 +19,9 @@
   stroke-width: 3;
   fill: #eee;
 }
+.door-circle{
+  r : 4;
+  stroke-width: 2;
+  fill: none;
+  stroke: #333;
+}

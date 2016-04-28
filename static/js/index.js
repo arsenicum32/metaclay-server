@@ -56,45 +56,45 @@
 
 })();
 
-function drawlines(){
-  var lns = [svg.append('line').attr({
-      x1: window.innerWidth,
-      y1: 0,
-      x2: 100,
-      y2: 100,
-      'stroke-width': 3,
-      stroke: '#ccc'
-    }), svg.append('line').attr({
-      x1: window.innerWidth,
-      y1: window.innerHeight,
-      x2: 100,
-      y2: 100,
-      'stroke-width': 3,
-      stroke: '#eee'
-    }), svg.append('line').attr({
-      x1: 0,
-      y1: 0,
-      x2: 100,
-      y2: 100,
-      'stroke-width': 3,
-      stroke: '#eee'
-    }), svg.append('line').attr({
-      x1: 0,
-      y1: window.innerHeight,
-      x2: 100,
-      y2: 100,
-      'stroke-width': 3,
-      stroke: '#eee'
-    })];
-
-    d3.select('body').on('mousemove', function() {
-      for (var n in lns) {
-        lns[n].attr({
-          x2: d3.mouse(this)[0],
-          y2: d3.mouse(this)[1]
-        });
-      }
-    });
+function drawlines(){ ///// без паутинок
+  // var lns = [svg.append('line').attr({
+  //     x1: window.innerWidth,
+  //     y1: 0,
+  //     x2: 100,
+  //     y2: 100,
+  //     'stroke-width': 3,
+  //     stroke: '#ccc'
+  //   }), svg.append('line').attr({
+  //     x1: window.innerWidth,
+  //     y1: window.innerHeight,
+  //     x2: 100,
+  //     y2: 100,
+  //     'stroke-width': 3,
+  //     stroke: '#eee'
+  //   }), svg.append('line').attr({
+  //     x1: 0,
+  //     y1: 0,
+  //     x2: 100,
+  //     y2: 100,
+  //     'stroke-width': 3,
+  //     stroke: '#eee'
+  //   }), svg.append('line').attr({
+  //     x1: 0,
+  //     y1: window.innerHeight,
+  //     x2: 100,
+  //     y2: 100,
+  //     'stroke-width': 3,
+  //     stroke: '#eee'
+  //   })];
+  //
+  //   d3.select('body').on('mousemove', function() {
+  //     for (var n in lns) {
+  //       lns[n].attr({
+  //         x2: d3.mouse(this)[0],
+  //         y2: d3.mouse(this)[1]
+  //       });
+  //     }
+  //   });
 }
 
 

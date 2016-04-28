@@ -167,19 +167,62 @@
 
     ////////// после перезагрузки страницы иногда происходит шлак
     fullinfopanel.style("visibility", "hidden");
+    fullinfopanel.style('opacity', 0);
 
+    var animation = {
+      sys: {
+        x: 0,
+        y: 0
+      },
+      run: function(xx,yy){
+        animation.sys.x = xx;
+        animation.sys.y = yy;
+        for(var k=0;k<50;k++){
+          svg.append('circle').attr({
+            "cx": xx ,
+            "cy": yy ,
+            "fill": '#eee',
+            "class": 'spritec',
+            'opacity': 0,
+            "r": Math.floor(Math.random()*20 + 1)
+          }).transition().attr('opacity',0.45).duration(90).each('end', function(){
+            d3.select(this).transition().attr({
+              'opacity':1,
+              "cx": xx + Math.floor(Math.random()*500 - 250),
+              "cy": yy + Math.floor(Math.random()*500 - 250)
+            }).duration(1900);
+          });
+        }
+      },
+      stop: function(){
+        svg.selectAll('.spritec').transition().attr({
+          'opacity': 0,
+          'cx': animation.sys.x,
+          'cy': animation.sys.y
+        }).duration(900).each('end', function(){
+          d3.select(this).remove();
+        })
+      }
+    }
+
+    var animated = false;
     $('.otdel-items').on({
       'mouseenter': function(e){
+        animation.run(e.pageX, e.pageY); /////////////// это анимация подложки
         if($(this).attr('file')){
           $.get('/g/'+ $(this).attr('file') + ($(this).attr('bd')?'?bd='+$(this).attr('bd'):'') , function(data){
             fullinfopanel.html(data);
-            console.log(data);
-          })
+            //console.log(data);
+          });
         }
+        fullinfopanel.style("visibility", "visible");
+        fullinfopanel.transition().style('opacity', 1.0).duration(900).each('end', function(){
+          animated = true;
+        });
       },
       'mousemove': function(e){
-        if($(this).attr('file')){
-          fullinfopanel.style("visibility", "visible");
+        if(true){ //$(this).attr('file')
+          if(animated) fullinfopanel.style("visibility", "visible").style('opacity', 1.0);
           fullinfopanel
           .style("top",(e.pageY+ ( clickpos(e.pageX,e.pageY)[1]? -10-y/2: 10 ) )+"px")
           .style("left",(e.pageX+ ( clickpos(e.pageX,e.pageY)[0]? -10-x/2: 10 ) )+"px");
@@ -189,8 +232,12 @@
         if($(this).attr('file'))
         effects.go('/full/'+$(this).attr('file') + ($(this).attr('bd')?'?bd='+$(this).attr('bd'):'') );
       },
-      'mouseout': function(){
-        fullinfopanel.style("visibility", "hidden");
+      'mouseleave': function(){
+        animation.stop(); /////////////// это анимация подложки
+        fullinfopanel.transition().style('opacity', 0).duration(400).each('end', function(){
+          fullinfopanel.style("visibility", "hidden");
+          animated = false;
+        });
       }
     })
   }

@@ -1,5 +1,5 @@
 var express = require('express');
-var mongoose = require('mongoose'); /// в продакшн удалить !!!
+//var mongoose = require('mongoose'); /// в продакшн удалить !!!
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var fs = require('fs');
@@ -17,8 +17,8 @@ app.use('/', express.static(__dirname + '/static'));
 app.use(cors());
 
 ///// !!!
-var item = new mongoose.Schema({ data: 'string', tag: 'string' });
-var items = mongoose.model('metaclay', item );
+// var item = new mongoose.Schema({ data: 'string', tag: 'string' });
+// var items = mongoose.model('metaclay', item );
 
 app.get('/admin', function(req, res, next) {
   if(req.query.p && req.query.p == '123456'){

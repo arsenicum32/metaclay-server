@@ -14,8 +14,11 @@
           flex-direction: column;
 }
 .zak .img {
-  width: 100%;
+  margin: auto;
   height: 250px;
+  -webkit-flex-shrink: 0;
+      -ms-flex-negative: 0;
+          flex-shrink: 0;
 }
 .zak .fn {
   width: 100%;

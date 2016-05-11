@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var fs = require('fs');
 
-mongoose.connect('mongodb://thebigbuy:fhctybqfylhtq@ds037185.mongolab.com:37185/thebigbuy'); // !!!
+//mongoose.connect('mongodb://thebigbuy:fhctybqfylhtq@ds037185.mongolab.com:37185/thebigbuy'); // !!!
 
 var app = express();
 
@@ -29,95 +29,118 @@ app.get('/admin', function(req, res, next) {
 });
 
 app.get('/admin/json', function(req, res, next) {
-  items.find( {} , function (err, adventure) {
+  fs.readFile('./backupbd/0.0.2.json', 'utf8', function(err,data){
     if(err){
-      res.json({error:"somthing went wrong!!!"});
+      res.json(err);
     }else{
-      res.json(adventure);
+      res.json(JSON.parse(data));
     }
   });
+  // items.find( {} , function (err, adventure) {
+  //   if(err){
+  //     res.json({error:"somthing went wrong!!!"});
+  //   }else{
+  //     res.json(adventure);
+  //   }
+  // });
 });
 
 app.get('/admin/json/:id', function(req, res, next) {
-  items.find( { tag: req.params.id } , function (err, adventure) {
+  fs.readFile('./backupbd/0.0.2.json', 'utf8', function(err,data){
     if(err){
-      res.json({error:"somthing went wrong!!!"});
+      res.json(err);
     }else{
-      res.json(adventure);
-    }
-  });
-});
-
-app.get('/admin/add', function(req, res, next) {
-  items.create( {data: req.query.q } , function (err, adventure) {
-    if(err){
-      res.json({error:"somthing went wrong!!!"});
-    }else{
-      res.json(adventure);
-    }
-  });
-});
-
-app.post('/admin/update/:id', function(req, res, next) {
-  items.findById( req.params.id , function (err, adventure) {
-    if(err){
-      res.json({error:"somthing went wrong!!!"});
-    }else{
-      if(adventure){
-        if(req.body.data){
-          adventure.data = req.body.data;
+      var dt = JSON.parse(data);
+      var found = false;
+      var arr = [];
+      for (var n = 0; n<dt.length; n++ ){
+        if(dt[n].tag == req.params.id){
+          arr.push(dt[n]);
+          found = true;
         }
-        if(req.body.tag){
-          adventure.tag = req.body.tag;
-        }
-        adventure.save();
-        res.json(adventure);
-      }else{
-        res.json({error: 'not found'});
       }
+      res.json(arr);
     }
   });
+  // items.find( { tag: req.params.id } , function (err, adventure) {
+  //   if(err){
+  //     res.json({error:"somthing went wrong!!!"});
+  //   }else{
+  //     res.json(adventure);
+  //   }
+  // });
 });
-
-app.get('/admin/rem/:id', function(req, res, next) {
-  items.findById(  req.params.id , function (err, adventure) {
-    if(err){
-      res.json({error:"somthing went wrong!!!"});
-    }else{
-      if(adventure){
-      	adventure.remove(function(err){
-	      	if(err){
-	          res.json('find, but no remove');
-	      	}else{
-	          res.json({sucsess: 'removed' });
-	      	}
-	      });
-      }else{
-        res.json({error: "not found"});
-      }
-    }
-  });
-});
-
-app.get('/admin/rem', function(req, res, next) {
-  items.findOne( {data: req.query.data } , function (err, adventure) {
-    if(err){
-      res.json({error:"somthing went wrong!!!"});
-    }else{
-      if(adventure){
-      	adventure.remove(function(err){
-	      	if(err){
-	          res.json('find, but no remove');
-	      	}else{
-	          res.json(adventure);
-	      	}
-	      });
-      }else{
-      	res.json('null');
-      }
-    }
-  });
-});
+//
+// app.get('/admin/add', function(req, res, next) {
+//   items.create( {data: req.query.q } , function (err, adventure) {
+//     if(err){
+//       res.json({error:"somthing went wrong!!!"});
+//     }else{
+//       res.json(adventure);
+//     }
+//   });
+// });
+//
+// app.post('/admin/update/:id', function(req, res, next) {
+//   items.findById( req.params.id , function (err, adventure) {
+//     if(err){
+//       res.json({error:"somthing went wrong!!!"});
+//     }else{
+//       if(adventure){
+//         if(req.body.data){
+//           adventure.data = req.body.data;
+//         }
+//         if(req.body.tag){
+//           adventure.tag = req.body.tag;
+//         }
+//         adventure.save();
+//         res.json(adventure);
+//       }else{
+//         res.json({error: 'not found'});
+//       }
+//     }
+//   });
+// });
+//
+// app.get('/admin/rem/:id', function(req, res, next) {
+//   items.findById(  req.params.id , function (err, adventure) {
+//     if(err){
+//       res.json({error:"somthing went wrong!!!"});
+//     }else{
+//       if(adventure){
+//       	adventure.remove(function(err){
+// 	      	if(err){
+// 	          res.json('find, but no remove');
+// 	      	}else{
+// 	          res.json({sucsess: 'removed' });
+// 	      	}
+// 	      });
+//       }else{
+//         res.json({error: "not found"});
+//       }
+//     }
+//   });
+// });
+//
+// app.get('/admin/rem', function(req, res, next) {
+//   items.findOne( {data: req.query.data } , function (err, adventure) {
+//     if(err){
+//       res.json({error:"somthing went wrong!!!"});
+//     }else{
+//       if(adventure){
+//       	adventure.remove(function(err){
+// 	      	if(err){
+// 	          res.json('find, but no remove');
+// 	      	}else{
+// 	          res.json(adventure);
+// 	      	}
+// 	      });
+//       }else{
+//       	res.json('null');
+//       }
+//     }
+//   });
+// });
 
 /////// !!!!
 
@@ -154,17 +177,32 @@ app.get('/data', function(req, res, next){
 
 app.get('/g/:file', function(req, res, next){
   if(req.query.bd){
-    items.findById(  req.query.bd , function (err, adventure) {
+    fs.readFile('./backupbd/0.0.2.json', 'utf8', function(err,data){
       if(err){
-        res.json({error:"somthing went wrong!!!"});
+        res.json(err);
       }else{
-        if(adventure){
-        	res.send(adventure.data);
-        }else{
-          res.json({error: "not found"});
+        var dt = JSON.parse(data);
+        var found = false;
+        for (var n = 0; n<dt.length; n++ ){
+          if(dt[n]._id == req.query.bd){
+            res.send(dt[n].data);
+            found = true;
+          }
         }
+        if(!found) res.json({error: 404});
       }
     });
+    // items.findById(  req.query.bd , function (err, adventure) {
+    //   if(err){
+    //     res.json({error:"somthing went wrong!!!"});
+    //   }else{
+    //     if(adventure){
+    //     	res.send(adventure.data);
+    //     }else{
+    //       res.json({error: "not found"});
+    //     }
+    //   }
+    // });
   }else{
     fs.stat( __dirname + '/static/read/'+req.params.file , function(err, stat){
       if(err) {

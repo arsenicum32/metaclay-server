@@ -210,9 +210,10 @@
       'mouseenter': function(e){
         animation.run(e.pageX, e.pageY); /////////////// это анимация подложки
         if($(this).attr('file')){
+          console.log('/g/'+ $(this).attr('file') + ($(this).attr('bd')?'?bd='+$(this).attr('bd'):''));
           $.get('/g/'+ $(this).attr('file') + ($(this).attr('bd')?'?bd='+$(this).attr('bd'):'') , function(data){
             fullinfopanel.html(data);
-            //console.log(data);
+            console.log(data);
           });
         }
         fullinfopanel.style("visibility", "visible");

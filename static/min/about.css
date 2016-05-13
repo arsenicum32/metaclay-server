@@ -1,0 +1,372 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  overflow: -moz-scrollbars-none;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: Gill Sans, sans-serif;
+  font-family: "Goudy Bookletter 1911", sans-serif;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 10;
+  background: white;
+  visibility: hidden;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-left: 5px solid #F7C059;
+}
+
+.label {
+  position: absolute;
+  z-index: 10;
+  width: 50%;
+  font-size: 1.0em;
+  color: black;
+}
+
+.label:after {
+  content: '_';
+  -webkit-animation: bnk 0.7s infinite alternate;
+  animation: bnk 0.7s infinite alternate;
+}
+
+.fullinfopanel {
+  position: absolute;
+  z-index: 10;
+  visibility: hidden;
+  background: white;
+  border: 1px solid #ccc;
+  width: 50vw;
+  min-width: 350px;
+}
+
+.fullhalf {
+  height: 50vh;
+  overflow: hidden;
+}
+
+.fullall {
+  height: 100vh;
+}
+
+.nocopy {
+  -webkit-user-select: none;
+  /* Chrome all / Safari all */
+  -moz-user-select: none;
+  /* Firefox all */
+  -ms-user-select: none;
+  /* IE 10+ */
+  user-select: none;
+  /* Likely future */
+}
+
+.textspeak {
+  width: 10vw;
+  height: 40vh;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  font-weight: lighter;
+  line-height: 1em;
+}
+
+.aboutmenu {
+  position: absolute;
+  width: 80vw;
+  height: 40vh;
+  z-index: 12;
+  visibility: hidden;
+}
+
+.st1 {
+  fill: #F7C059;
+}
+
+.st2 {
+  fill: #FFFFFF;
+}
+
+.st3 {
+  fill: #4A96CD;
+}
+
+.st4 {
+  fill: #D20024;
+}
+
+@-webkit-keyframes bnk {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bnk {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+.frame {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.frame .photo {
+  max-width: 80%;
+  max-height: 40vh;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+.frame .text {
+  max-width: 80%;
+  margin: auto;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.frame .blue {
+  color: white;
+  background: #4A96CD;
+}
+
+.frame .red {
+  color: white;
+  background: #D20024;
+}
+
+.frame .block {
+  margin-top: 12px;
+  border-left: 3px solid #D20024;
+  margin-left: 5%;
+  padding-left: 5px;
+}
+.razdel {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.flexblock {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.flexblock p {
+  width: 50px;
+  line-height: 1em;
+}
+
+.toptext {
+  width: 80%;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.ab-lab {
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 5%;
+}
+
+.link-about {
+  text-decoration: none;
+  background: #eee;
+  color: #333;
+}
+
+.block-profile {
+  width: 100%;
+  overflow: scroll;
+  overflow-x: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+}
+
+.block-profile .profile {
+  margin: 5px;
+}
+
+.block-profile .profile img {
+  width: 120px;
+  border-radius: 50%;
+}
+
+.block-profile .profile .name {
+  font-weight: bold;
+}
+
+.block-profile .profile .desc {
+  font-weight: lighter;
+  font-size: 0.7em;
+}
+
+.block-profile .profile p {
+  width: 120px;
+  line-height: 1em;
+  margin-top: 0.5em;
+}
+
+.bold {
+  font-weight: normal;
+  font-size: 1.2em;
+}
+
+.block-att {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+}
+
+.block-att .profile {
+  margin: 5px;
+}
+
+.block-att .profile img {
+  width: 120px;
+}
+
+.block-att .profile .desc {
+  font-weight: lighter;
+  text-align: center;
+}
+
+.block-att .profile p {
+  width: 120px;
+  line-height: 1em;
+  margin-top: 0.5em;
+}
+
+.block-att .profile a {
+  top: 0px;
+  margin: auto;
+}
+
+.active {
+  /*overflow-y: scroll;
+  overflow-x: hidden; выключили из-за ебнутого фаерфокса */
+  overflow: hidden;
+}
+
+.block-profile {
+  width: 100%;
+  overflow: scroll;
+  overflow-x: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+}
+
+.block-profile .profile {
+  margin: 5px;
+}
+
+.block-profile .profile img {
+  width: 120px;
+  border-radius: 50%;
+}
+
+.block-profile .profile .name {
+  font-weight: bold;
+}
+
+.block-profile .profile .desc {
+  font-weight: lighter;
+  font-size: 0.7em;
+}
+
+.block-profile .profile p {
+  width: 120px;
+  line-height: 1em;
+  margin-top: 0.5em;
+}
+
+.block-profile a {
+  text-decoration: none;
+  color: black;
+  background: #eee;
+  padding: 5px;
+  margin: 10px;
+}
+
+.block-profile img {
+  width: 20%;
+  /*height: 20%;*/
+}
+.atom {
+  stroke: #ddd;
+  stroke-width: 2;
+  fill: #eee;
+}
+
+.planet {
+  stroke: #ccc;
+  stroke-width: 3;
+  fill: #eee;
+}
+
+.orbit {
+  stroke: #eee;
+  stroke-width: 3;
+  fill: none;
+}
+
+.hamburger {
+  stroke: #ccc;
+  stroke-width: 3;
+  fill: #eee;
+}
+
+.door-circle {
+  r: 4;
+  stroke-width: 2;
+  fill: none;
+  stroke: #333;
+}

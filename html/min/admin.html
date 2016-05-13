@@ -1,0 +1,71 @@
+<!doctype html><html><head><title>metaclay</title><link rel="stylesheet" href="css/about.css"><link rel="stylesheet" href="css/about_otdel.css"><link rel="stylesheet" href="css/obord_new.css"><link rel="stylesheet" href="css/obdesc.css"><link rel="stylesheet" href="css/frame.css"><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/admin.css"><script type="text/javascript" src="js/lib/jquery2.2.js"></script><script type="text/javascript" src="http://underscorejs.ru/underscore-min.js"></script></head><body><div id="body"><a href="" id="addtext">добавить текст</a> <input id="rem">удалить</div><div id="preview"></div><script>// $.post('/test', {test: "test"}).done(function(response){
+    //   console.log(response);
+    // }).fail(function(response){
+    //   console.log('fail');
+    // })
+    function view(el){
+      //alert($(el).attr('id'));
+      $.get('/g/desc.html?bd='+$(el).attr('id'), function(data){
+        $('#preview').html(data);
+      });
+    }
+    function bb(){
+      $('textarea').off( 'input');
+      $('textarea').on( 'input', _.debounce(
+        function(){
+          var updata = $(this).val();
+          var id = $(this).attr('id');
+          $.post('/admin/update/'+id,{data:updata}).done(function(data){
+            sflip(data);
+          }).fail(function(data){
+            sflip({error: 'Что-то пошло не так...'});
+          });
+        } , 100 ));
+      $('input').on( 'input', _.debounce(
+        function(){
+          //alert('fuckkk');
+          var updata = $(this).val();
+          var id = $(this).attr('id');
+          $.post('/admin/update/'+id,{tag:updata}).done(function(data){
+            sflip(data);
+          }).fail(function(data){
+            sflip({error: 'Что-то пошло не так...'});
+          });
+        } , 100 ) );
+     }
+      $.get('/admin/json', function(data){
+        for(var n in data){
+          $('#body').append('<div class="blk"><p>'+data[n]._id+'</p><input class=".inp" id="'+data[n]._id+'" value="'+(data[n].tag?data[n].tag:'')+'" /><textarea id="'+data[n]._id+'">'+data[n].data+'</textarea><a id="'+data[n]._id+'" href="#" onclick="view(this)">view</a></div>');
+        }
+        bb();
+      });
+      $('#addtext').on('click', function(){
+        $.get('/admin/add?q=new', function(data){
+          console.log(data);
+          window.location.reload();
+          $('#body').append('<div class="blk"><p>'+data._id+'</p><input d="'+data[n]._id+'">'+data[n].tag+'</input><textarea id="'+data._id+'">'+data.data+'</textarea></div>');
+            bb();
+        });
+      });
+
+      function sflip(d){
+        var dt = typeof d != typeof ''? JSON.stringify(d, null, '\t'): d;
+        dt = 'данные успешно сохранены как: \n' + dt;
+        $('body').append('<div class="tf"><pre>'+dt+'</pre></div>');
+        setTimeout(function(){
+           $('.tf').remove();
+        }, 1200);
+
+
+        $('#rem').on( 'input', _.debounce(
+          function(){
+            //alert('fuckkk');
+            var updata = $(this).val();
+            $.get('/admin/rem/'+updata, function(data){
+              sflip(data);
+              if(data.sucsess){
+                window.location.reload();
+              }
+            });
+          } , 100 ) );
+      }</script></body></html>

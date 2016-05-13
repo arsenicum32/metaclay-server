@@ -1,32 +1,23 @@
 var express = require('express');
-//var mongoose = require('mongoose'); /// в продакшн удалить !!!
-var bodyParser = require('body-parser');
 var cors = require('cors');
 var fs = require('fs');
-
-//mongoose.connect('mongodb://thebigbuy:fhctybqfylhtq@ds037185.mongolab.com:37185/thebigbuy'); // !!!
+var helmet = require('helmet');
 
 var app = express();
 
 var http = require('http').Server(app);
 
-
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use('/', express.static(__dirname + '/static'));
 app.use(cors());
+app.use(helmet());
 
-///// !!!
-// var item = new mongoose.Schema({ data: 'string', tag: 'string' });
-// var items = mongoose.model('metaclay', item );
-
-app.get('/admin', function(req, res, next) {
-  if(req.query.p && req.query.p == '123456'){
-    res.sendFile(__dirname + '/admin.html');
-  }else{
-    res.status(404).end();
-  }
-});
+// app.get('/admin', function(req, res, next) {
+//   if(req.query.p && req.query.p == '123456'){
+//     res.sendFile(__dirname + '/admin.html');
+//   }else{
+//     res.status(404).end();
+//   }
+// });
 
 app.get('/admin/json', function(req, res, next) {
   fs.readFile('./backupbd/0.0.2.json', 'utf8', function(err,data){
@@ -36,13 +27,6 @@ app.get('/admin/json', function(req, res, next) {
       res.json(JSON.parse(data));
     }
   });
-  // items.find( {} , function (err, adventure) {
-  //   if(err){
-  //     res.json({error:"somthing went wrong!!!"});
-  //   }else{
-  //     res.json(adventure);
-  //   }
-  // });
 });
 
 app.get('/admin/json/:id', function(req, res, next) {
@@ -62,13 +46,6 @@ app.get('/admin/json/:id', function(req, res, next) {
       res.json(arr);
     }
   });
-  // items.find( { tag: req.params.id } , function (err, adventure) {
-  //   if(err){
-  //     res.json({error:"somthing went wrong!!!"});
-  //   }else{
-  //     res.json(adventure);
-  //   }
-  // });
 });
 //
 // app.get('/admin/add', function(req, res, next) {
@@ -144,18 +121,6 @@ app.get('/admin/json/:id', function(req, res, next) {
 
 /////// !!!!
 
-app.get('/gitpull123', function(req, res, next){
-  var spawn = require('child_process').spawn;
-  var gits = spawn('git', ['pull']);
-  gits.stdout.on('data', function(data) {
-  });
-  gits.stderr.on('data', function(data) {
-  });
-  gits.on('close', function(code) {
-  });
-  res.send("command send to server...");
-});
-
 
 app.get('/data', function(req, res, next){
   fs.stat( __dirname + '/static/sitemap.json' , function(err, stat){
@@ -187,22 +152,12 @@ app.get('/g/:file', function(req, res, next){
           if(dt[n]._id == req.query.bd){
             res.send(dt[n].data);
             found = true;
+            break;
           }
         }
         if(!found) res.json({error: 404});
       }
     });
-    // items.findById(  req.query.bd , function (err, adventure) {
-    //   if(err){
-    //     res.json({error:"somthing went wrong!!!"});
-    //   }else{
-    //     if(adventure){
-    //     	res.send(adventure.data);
-    //     }else{
-    //       res.json({error: "not found"});
-    //     }
-    //   }
-    // });
   }else{
     fs.stat( __dirname + '/static/read/'+req.params.file , function(err, stat){
       if(err) {
@@ -224,7 +179,7 @@ app.get('/g/:file', function(req, res, next){
 });
 
 app.get('/full/:file', function(req, res, next){
-  res.sendFile(__dirname + '/fullpage.html');
+  res.sendFile(__dirname + '/html/min/fullpage.html');
 });
 
 app.get('/d/:file', function(req, res, next){
@@ -239,19 +194,19 @@ app.get('/d/:file', function(req, res, next){
 });
 
 app.get('/about' , function(req, res, next){ // , checkForMobile
-  res.sendFile(__dirname + '/about.html');
+  res.sendFile(__dirname + '/html/min/about.html');
 });
 
 app.get('/otdel/:id' , function(req, res, next){ // , checkForMobile
-  res.sendFile(__dirname + '/otdel.html');
+  res.sendFile(__dirname + '/html/min/otdel.html');
 });
 
 app.get('/nodoor', function(req, res, next){
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/html/min/index.html');
 });
 
 app.get('/', function(req, res, next){
-  res.sendFile(__dirname + '/door.html');
+  res.sendFile(__dirname + '/html/min/door.html');
 });
 
 http.listen(4800, function(){

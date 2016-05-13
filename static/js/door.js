@@ -62,6 +62,9 @@
       'height': '100vh'
     });
 
+    //console.log(ldoor.attr('height') +':'+window.innerHeight);
+
+
     lanim.push(ldoor);
 
     var rdoor = door.append('rect').attr({

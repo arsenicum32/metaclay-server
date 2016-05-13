@@ -1,0 +1,55 @@
+<!doctype html><html><head><title>metaclay</title><meta name="viewport" content="initial-scale=1,maximum-scale=1"><link rel="stylesheet" href="../css/style.css"><link rel="stylesheet" href="../css/about_otdel.css"><link rel="stylesheet" href="../css/svg-d3.css"><link rel="stylesheet" href="../css/obord_new.css"><link rel="stylesheet" href="../css/obdesc.css"><style>#cont{
+      overflow: scroll;
+    }</style><script type="text/javascript" src="../js/lib/jquery2.2.js"></script><script type="text/javascript" src="../js/lib/d3.js"></script></head><body><script src="../js/index.js"></script><script>var hamburger = svg.append('g');
+
+        var crs = hamburger.append('circle').attr({
+          "class": "hamburger",
+          "cx":  60,
+          "cy": 40,
+          "r": 20
+        });
+
+        var l = [
+          hamburger.append('path').attr({
+            "class": "hamburger",
+            "d": "M 60 47 L 52 39.5 L 60 32",
+            "stroke-width": 3
+          })
+        ];
+
+        resf.push(function(){
+          crs.attr({
+            "cx":  60
+          });
+          for (var n in l){
+            l[n].attr({
+              "x1":  48,
+              "x2":  72
+            });
+          }
+        });
+        hamburger.on('click', function(){
+          effects.go('back');
+        });
+
+        d3.select('body').append('div').attr({
+          'id': 'cont',
+          'class': 'active'
+        }).style({
+          'position': 'absolute',
+          'width': '80vw',
+          'max-width': '650px',
+          'height': '100vh',
+          'left': '10vw',
+          'top': '0vh',
+          'background': 'white',
+          'border': '2px solid #eee'
+        });
+        var last = window.location.href.split('/')[ window.location.href.split('/').length - 1];
+        setTimeout(function(){
+          $.get('/g/'+last, function(data){
+            if(typeof data===typeof ''){
+              $('#cont').html(data);
+            }
+          });
+        }, 100);</script></body></html>

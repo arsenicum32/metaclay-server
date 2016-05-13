@@ -1,1 +1,5 @@
 node_modules/
+gulpfile.js
+static/js/
+static/css/
+/*.html

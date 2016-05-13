@@ -1,9 +1,0 @@
-server {
-        listen 80; #default_server;
-        server_name hseartanddesignschool.ru *.hseartanddesignschool.ru;
-        root /home/ars/metaclay ;
-        index index.html index.htm;
-        error_page 404 /404.html;
-        error_page 403 /403.html;
-        error_page 500 502 503 504 /50x.html;
-}

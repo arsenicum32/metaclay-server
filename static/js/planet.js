@@ -145,18 +145,6 @@
           navpanel.transition().attr('transform', 'scale(0.35,0.35)').duration(2500).each('end', function(){
             effects.go('/otdel/'+ obj.attr('name') );
           })
-          // var scale=1;
-          // var inter = setInterval( function(){
-          //   if(scale>0.35) scale-=0.05;
-          //   else{
-          //     clearInterval(inter);
-          //     effects.go('/otdel/'+ obj.attr('name') );
-          //   }
-          //   navpanel.attr({
-          //     "transform": "scale( "+scale+" "+scale+") translate(0 0)"
-          //   });
-          //   stage.attr('visibility',"visible");
-          // },10);
         }else{
           var tmr = 0;
           var inter = setInterval( function(){

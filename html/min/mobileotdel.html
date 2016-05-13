@@ -1,0 +1,9 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="initial-scale=1,maximum-scale=1"><title>metaclay mobile</title><link rel="stylesheet" href="../../css/animate.css"></head><body><div class="section" id="section"><div class="sec anm"><img id="otdim" src="../../images/ofmi/ofmi_1.png" class="sphere"><h2 class="title">название планеты</h2><p class="desc">краткое описание планеты что там да как</p></div><div class="bod"><p class="desc"></p></div></div><script src="../../js/lib/jquery2.2.js"></script><script>$.fn.extend({
+         animateCss: function (animationName, callback) {
+            var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+            $(this).addClass('animated ' + animationName).one(animationEnd, function() {
+                $(this).removeClass('animated ' + animationName);
+                if(callback) callback();
+            });
+         }
+      });</script><script src="../../js/mobile/otdelnav.js"></script><script src="../../js/mobile/index.js"></script></body></html>

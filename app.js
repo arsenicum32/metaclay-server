@@ -1,5 +1,4 @@
 var express = require('express');
-var cors = require('cors');
 var fs = require('fs');
 var helmet = require('helmet');
 
@@ -8,7 +7,6 @@ var app = express();
 var http = require('http').Server(app);
 
 app.use('/', express.static(__dirname + '/static'));
-app.use(cors());
 app.use(helmet());
 
 // app.get('/admin', function(req, res, next) {

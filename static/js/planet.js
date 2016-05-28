@@ -1,6 +1,6 @@
 (function(){
   function addPlanet(orb , pla){
-    var nav = navpanel.append('g');
+    var nav = navpanel.append('g').attr('class','meow');
 
     if(orb.draw){
       var orbit = nav.append('circle').attr({
@@ -75,6 +75,7 @@
 
       gifs[i].setpos(x/2, y/2 + orb.r);
       gifs[i].setscale( 1 );
+      gifs[i].style('opacity', 1 );
     }
 
 
@@ -179,6 +180,7 @@
 
   var pi = 3.14;
   $.get('/data', function(data){
+    navpanel.selectAll('.meow').remove();
     var menu = data.navigation;
     for(var n in menu){ // добавляем стартовую позицию элементам
       menu[n].r = 18; menu[n].speed = 0.25; menu[n].start = 2*pi*n;

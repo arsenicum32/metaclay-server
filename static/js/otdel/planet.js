@@ -1,9 +1,9 @@
 (function(){
-  function addPlanet(orb , pla){
-    var nav = navpanel.append('g');
+  function addplanet2(orb , pla){
+    var nav2 = navpanel.append('g').attr('class','meow');
 
     if(orb.draw){
-      var orbit = nav.append('circle').attr({
+      var orbit2 = nav2.append('circle').attr({
         "cx": x/2,
         "cy": y/2,
         'opacity': 0,
@@ -11,10 +11,10 @@
         "r": orb.r
       });
 
-      orbit.transition().attr('opacity',1).duration(1500);
+      orbit2.transition().attr('opacity',1).duration(1500);
 
       resf.push(function(){
-        orbit.attr({
+        orbit2.attr({
           "cx": x/2,
           "cy": y/2,
           "r": orb.r
@@ -22,7 +22,7 @@
       });
     }
 
-    var currentSel =  nav.append('text').attr({
+    var currentSel =  nav2.append('text').attr({
       "x": x/2,
       "y": y/2 + orb.r + 80,
       'opacity': 1,
@@ -39,12 +39,12 @@
 
     var timer = [];
     var intervalRotation;
-    var planet = [];
+    var planet2 = [];
 
     for(var i in pla){
       timer.push((pla[i].start || 0));
 
-      planet.push(nav.append('circle').attr({
+      planet2.push(nav2.append('circle').attr({
         "cx": x/2,
         "cy": y/2 + orb.r,
         'opacity': 0,
@@ -55,15 +55,15 @@
       }));
     }
 
-    for(var k in planet){
-      planet[k].transition().attr('opacity',1).duration(500);
+    for(var k in planet2){
+      planet2[k].transition().attr('opacity',1).duration(500);
     }
 
     function setRotation(set){
       intervalRotation = setInterval(function(){
-        for(var n in planet){
+        for(var n in planet2){
           timer[n]+=0.001;
-          planet[n].attr({
+          planet2[n].attr({
             "cx": x/2 + Math.cos(timer[n]*(pla[n].speed||1))*orb.r,
             "cy": y/2 + Math.sin(timer[n]*(pla[n].speed||1))*orb.r
           });
@@ -77,8 +77,8 @@
       "transform": "scale( "+0.35+" "+0.35+") translate(0 0)"
     });
 
-    for(var i in planet){
-      planet[i].on('mouseover', function(){
+    for(var i in planet2){
+      planet2[i].on('mouseover', function(){
         var current = pla[i].r || 30;
         clearInterval(intervalRotation);
         $(this).attr({
@@ -88,7 +88,7 @@
         return tooltip.style("visibility", "visible");
       });
 
-      planet[i].on('click', function(){
+      planet2[i].on('click', function(){
           clearInterval(intervalRotation);
           var tmr = 0;
           var obj = $(this);
@@ -99,10 +99,10 @@
               clearInterval(inter);
               if(effects.lurl() !=  obj.attr('name') ){
                 logog.destroy(x*2, 1500, 1);
-                for(var k in planet){
-                  planet[k].transition().attr('opacity', 0).duration(1500);
+                for(var k in planet2){
+                  planet2[k].transition().attr('opacity', 0).duration(1500);
                 }
-                orbit.transition().attr('opacity', 0).duration(1500).each('end', function(){
+                orbit2.transition().attr('opacity', 0).duration(1500).each('end', function(){
                   effects.go('/otdel/'+obj.attr('name'));
                 });
               }
@@ -117,10 +117,10 @@
           currentSel.transition().attr('opacity',0).duration(1800);
         //drawPath.draw([[$(this).attr('cx'),$(this).attr('cy')],[200,200],[300,300]]); /////////////////////////////////////////
       });
-      planet[i].on('mousemove', function(){
+      planet2[i].on('mousemove', function(){
         return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
       });
-      planet[i].on('mouseout', function(){
+      planet2[i].on('mouseout', function(){
         var current = pla[i].r || 30;
         setRotation();
         $(this).attr({
@@ -138,7 +138,7 @@
     for(var n in menu){
       menu[n].r = 16; menu[n].speed = 0.25; menu[n].start = 2*pi*n;
     }
-    addPlanet({r: 100 , draw: true} ,  menu );
+    addplanet2({r: 100 , draw: true} ,  menu );
     textspeak.rebind();
     redrawall();
 

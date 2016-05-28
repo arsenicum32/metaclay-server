@@ -1,4 +1,20 @@
 (function() {
+  var increm = 0; ///// ебучие костыли
+  window.onpopstate = function(e) {
+    increm++;
+    if(increm-1)
+    window.location.reload();
+  }
+
+  window.onunload = function(e) {
+    location.reload();
+  }
+  // window.addEventListener('popstate', function(e) {
+  //   increm++;
+  //   if(increm-1)
+  //   window.location.reload();
+  // }); /////////// ахахахаха просто пиздец
+
   window.x = $(window).width();
   window.y = $(window).height();
   window.svg = d3.select('body').append('svg').attr({

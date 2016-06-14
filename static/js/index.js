@@ -13,7 +13,7 @@
   //   increm++;
   //   if(increm-1)
   //   window.location.reload();
-  // }); /////////// ахахахаха просто пиздец
+  // }); 
 
   window.x = $(window).width();
   window.y = $(window).height();

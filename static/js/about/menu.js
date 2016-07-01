@@ -82,11 +82,34 @@
     return obj;
   }
 
+  var tags = ['GHnjU', 'KdFgt'], inverter = 0;
+
+  function burntrigger(){
+    $('.bt').on('click', function(){
+      inverter = 1 - inverter;
+      $('.bt').each(function(){
+        $(this).removeClass('activebt');
+      })
+      $('.'+tags[inverter]).each(function(){
+        $(this).remove();
+      })
+      $(this).addClass('activebt');
+      $.get('/g/'+ $(this).attr('file'), function(data){
+        $('body').append('<div class="fullscreen '+tags[inverter]+'">'+div1+data+div2+'</div>');
+      });
+    });
+  }
+
   $.get('/data', function(data){
     for(var n in data.about){
-      panels.push(addPage( data.about.length - n , data.about[n] ));
+      $('.navpanel').append('<div class="bt" file="'+data.about[n].file+'">'+data.about[n].text+'</div>');
     }
-    if(activeobject) $(activeobject).click();
+    burntrigger();
+    setTimeout(function(){
+       $('.bt').each(function(){
+         if( $(this).text() == 'инфо' ) $(this).click();
+       })
+    }, 1000);
   })
 
   //

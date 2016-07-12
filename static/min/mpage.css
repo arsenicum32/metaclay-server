@@ -49,7 +49,9 @@ body {
 
 .fullhalf {
   height: 50vh;
+  width: 50vh;
   overflow: hidden;
+  border-radius: 50%;
 }
 
 .fullall {

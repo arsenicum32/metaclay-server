@@ -208,7 +208,7 @@
     var animated = false;
     $('.otdel-items').on({
       'mouseenter': function(e){
-        animation.run(e.pageX, e.pageY); /////////////// это анимация подложки
+        //animation.run(e.pageX, e.pageY); /////////////// это анимация подложки
         if($(this).attr('file')){
           console.log('/g/'+ $(this).attr('file') + ($(this).attr('bd')?'?bd='+$(this).attr('bd'):''));
           $.get('/g/'+ $(this).attr('file') + ($(this).attr('bd')?'?bd='+$(this).attr('bd'):'') , function(data){
@@ -223,10 +223,10 @@
       },
       'mousemove': function(e){
         if(true){ //$(this).attr('file')
-          if(animated) fullinfopanel.style("visibility", "visible").style('opacity', 1.0);
-          fullinfopanel
-          .style("top",(e.pageY+ ( clickpos(e.pageX,e.pageY)[1]? -10-y/2: 10 ) )+"px")
-          .style("left",(e.pageX+ ( clickpos(e.pageX,e.pageY)[0]? -10-x/2: 10 ) )+"px");
+        if(animated) fullinfopanel.style("visibility", "visible").style('opacity', 1.0);
+        fullinfopanel
+        .style("top",(e.pageY+ ( clickpos(e.pageX,e.pageY)[1]? -10-y/2: 10 ) )+"px")
+        .style("left",(e.pageX+ ( clickpos(e.pageX,e.pageY)[0]? -10-x/2: 10 ) )+"px");
         }
       },
       'click': function(){
@@ -234,7 +234,7 @@
         effects.go('/full/'+$(this).attr('file') + ($(this).attr('bd')?'?bd='+$(this).attr('bd'):'') );
       },
       'mouseleave': function(){
-        animation.stop(); /////////////// это анимация подложки
+        //animation.stop(); /////////////// это анимация подложки
         fullinfopanel.transition().style('opacity', 0).duration(400).each('end', function(){
           fullinfopanel.style("visibility", "hidden");
           animated = false;
